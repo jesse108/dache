@@ -1,3 +1,4 @@
 /conf/db.conf.php
 /.*
-temp
+temp/*.*
+
