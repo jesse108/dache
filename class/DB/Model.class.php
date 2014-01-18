@@ -2,9 +2,10 @@
 class DB_Model{
 	public $tableName = '';
 	public $error = '';
-	public $readDB ='';
-	public $writeDB = '';
+	public $readDB ='ro';
+	public $writeDB = 'rw';
 	public $primaryKey = 'id';
+	
 	
 	public function create($condition,$duplicateCondition = null){
 		$table = $this->tableName;
@@ -27,7 +28,8 @@ class DB_Model{
 		return $result;
 	}
 	
-	public function update(){
-		
+	public function update($condition,$updateRow){
+		$result = DB::Update($this->tableName, $condition, $updateRow,$this->writeDB);
+		return $result;
 	}
 }
