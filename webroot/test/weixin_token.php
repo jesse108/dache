@@ -14,7 +14,7 @@ function checkSignature()
 	$timestamp = $_GET["timestamp"];
 	$nonce = $_GET["nonce"];
 
-	$token = TOKEN;
+	$token = 'dachequ_aliyun_123';
 	$tmpArr = array($token, $timestamp, $nonce);
 	sort($tmpArr);
 	$tmpStr = implode( $tmpArr );
