@@ -3,7 +3,7 @@
 ini_set('precision', 16);  //这只浮点型精度
 define('ROOT_PATH', dirname(__FILE__));
 define('LIB_PATH', ROOT_PATH.'/lib');
-define('CLASS_PATH', ROOT_PATH.'class');
+define('CLASS_PATH', ROOT_PATH.'/class');
 define('CONF_PATH', ROOT_PATH.'/conf');
 define('LANG_PATH', ROOT_PATH.'/lang');
 define('COM_PATH', ROOT_PATH.'/common');
