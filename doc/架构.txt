@@ -1,0 +1,12 @@
+网站默认使用UTF8编码
+
+文件结构
+class     业务类
+common    通用函数
+conf      配置文件
+lang      语言包
+lib       通用类
+plugins   第三方/插件
+temp      临时文件
+template  模板
+webroot   view 层: 前端页面
