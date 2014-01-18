@@ -15,6 +15,7 @@ if(!$validate){
 
 if($echoStr){
 	echo $echoStr;
+	exit;
 }
 
 
