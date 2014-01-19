@@ -90,7 +90,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 			'FromUserName' => $devUserID,
 			'CreateTime' => time(),
 			'MsgType' => WeiXin_Handler::MSG_TYPE_TEXT,
-			'content' => $text,
+			'Content' => $text,
 		);
 		return $ret;
 	}
