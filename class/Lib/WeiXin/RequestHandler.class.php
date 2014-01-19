@@ -46,7 +46,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 			$url = $server . "?user_open_id={$userOpenID}";
 			
 			$text = "需要打车服务? 请访问我们的打车平台 ";
-			$text .= "\n <a href='{$url}'>点击进入</a>";
+			$text .= "<a href='{$url}'>点击进入</a>";
 			
 			$result = $this->buildTextData($text);
 		} else {
@@ -68,7 +68,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 				$url = $config['server'];
 				$userOpenID = $requestData['FromUserName'];
 				$url .= "?user_open_id={$userOpenID}";
-				$text = $text."\n <a href='{$url}'>点击进入打车平台</a>";
+				$text = $text." <a href='{$url}'>点击进入打车平台</a>";
 				$result = $this->buildTextData($text);
 				break;
 			default:
