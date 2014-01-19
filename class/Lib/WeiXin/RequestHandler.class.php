@@ -18,7 +18,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 		}
 		$this->msgType = $msgType;
 		$this->requestData = $requestData;
-		
+	
 		
 		switch ($msgType){
 			case WeiXin_Handler::MSG_TYPE_EVENT: //事件
@@ -38,9 +38,9 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 	public function handleText(){
 		$requestData = $this->requestData;
 		$userOpenID = $requestData['FromUserName'];
-		$content = $requestData['content'];
+		$content = $requestData['Content'];
 		
-		if(strpos('打车', $content)){
+		if(strpos('打车', $content) !== false){
 			$config = $this->config;
 			$server = $config['server'];
 			$url = $server . "?user_open_id={$userOpenID}";

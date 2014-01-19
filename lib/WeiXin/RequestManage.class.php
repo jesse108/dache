@@ -28,9 +28,8 @@ class WeiXin_RequestManage{
 		//////
 		
 		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取raw post数据
-		
 		if(!$postStr){
-			$result =  'no data';
+			$result =  ' ';
 		} else {
 			$this->postData = $postStr;
 			
