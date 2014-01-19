@@ -77,4 +77,14 @@ create table if not exists `order_track`(
 
 
 
+create table if not exists `log`(
+	`id` bigint(20) not null primary key auto_increment,
+	`type` tinyint(2) not null default 1 comment '1:normal',
+	`url` varchar(256),
+	`post_data` varchar(2000),
+	`content` varchar(2000),
+	`create_time` int(10) not null default 0,
+	key(`create_time`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 

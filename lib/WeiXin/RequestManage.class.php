@@ -21,7 +21,6 @@ class WeiXin_RequestManage{
 		if(!$this->checkSignature()){
 			return false;
 		}
-		
 		/////////验证
 		if($_GET['echostr']){
 			return $_GET['echostr'];
@@ -31,17 +30,20 @@ class WeiXin_RequestManage{
 		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取raw post数据
 		
 		if(!$postStr){
-			return '';
+			$result =  'no data';
+		} else {
+			$this->postData = $postStr;
+			
+			$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+			$postArray = Util_Array::ObjectToArray($postObj);
+			$this->postArray = $postArray;
+			
+			$msgType = $postArray['MsgType'];
+			
+			$result = $this->handler->handleRquest($msgType,$postArray);
 		}
-		$this->postData = $postStr;
-	
-		$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-		$postArray = Util_Array::ObjectToArray($postObj);
-		$this->postArray = $postArray;
-		
-		$msgType = $postArray['MsgType'];
-		
-		$result = $this->handler->handleRquest($msgType,$postArray);
+
+		Log::Set($result);
 		if(!$result){
 			return self::DEFAULT_OUTPUT;
 		}
