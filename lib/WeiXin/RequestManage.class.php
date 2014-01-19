@@ -14,6 +14,7 @@ class WeiXin_RequestManage{
 	
 	public function __construct($handler,$token){
 		$this->handler = $handler;
+		$this->token = $token;
 	}
 	
 	public function handleRquest(){
