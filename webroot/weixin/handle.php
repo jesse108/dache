@@ -1,24 +1,9 @@
 <?php
 include_once dirname(dirname(dirname(__FILE__))).'/app.php';
 $token = 'dachequ_aliyun_123';
+$handler = new Lib_WeiXin_RequestHandler();
 
-$echoStr = $_GET["echostr"];
+$weixinManager = new WeiXin_RequestManage($handler, $token);
 
-$validate = WeiXin::checkSignature($token);
-
-
-if(!$validate){
-	exit;
-}
-
-
-
-if($echoStr){
-	echo $echoStr;
-	exit;
-}
-
-
-$msg = WeiXin::getMsg();
-
-dump($msg);
+$result = $weixinManager->handleRquest();
+echo $result;
