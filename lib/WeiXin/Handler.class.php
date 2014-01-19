@@ -1,6 +1,6 @@
 <?php
 interface WeiXin_Handler{
-	const MSG_TYPE_TEXT = 'test';
+	const MSG_TYPE_TEXT = 'text';
 	const MSG_TYPE_IMAGE = 'image';
 	const MSG_TYPE_VOICE = 'voice';
 	const MSG_TYPE_VIDEO = 'video';
