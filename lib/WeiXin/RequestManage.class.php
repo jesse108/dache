@@ -94,7 +94,12 @@ class WeiXin_RequestManage{
 		$str = '';
 		foreach ($array as $key => $value){
 			$value = strval($value);
-			$str .= "<{$key}>{$value}</{$key}>";
+			if(htmlspecialchars($value) != $value){
+				$str .= "<{$key}><![CDATA[{$value}]]></{$key}>";
+			} else {
+				$str .= "<{$key}>{$value}</{$key}>";
+			}
+			
 		}
 		return $str;
 	}
