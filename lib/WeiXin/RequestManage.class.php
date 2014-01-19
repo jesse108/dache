@@ -29,6 +29,10 @@ class WeiXin_RequestManage{
 		//////
 		
 		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取raw post数据
+		
+		if(!$postStr){
+			return '';
+		}
 		$this->postData = $postStr;
 	
 		$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);

@@ -6,4 +6,9 @@ $handler = new Lib_WeiXin_RequestHandler();
 $weixinManager = new WeiXin_RequestManage($handler, $token);
 
 $result = $weixinManager->handleRquest();
-echo $result;
+
+if($result){
+	echo $result;
+} else {
+	echo ' ';
+}
