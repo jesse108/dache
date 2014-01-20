@@ -52,4 +52,9 @@ class Utility{
 		}
 		return $random;
 	}
+	
+	
+	public static function getUserIP($defaultIP = null){ //获取用户IP todo
+		
+	}
 }

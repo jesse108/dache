@@ -88,3 +88,18 @@ create table if not exists `log`(
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
+create table if not exists `weixin_user`(
+	`user_id` bigint(20) not null primary key,
+	`open_id` varchar(64) not null,
+	`create_time` int(10) not null default 0,
+	`update_time` int(10) not null default 0,
+	`nickname` varchar(64),
+	`sex` tinyint(2),
+	`city` varchar(30),
+	`country` varchar(30),
+	`province` varchar(30),
+	`language` varchar(16),
+	`headimgurl` varchar(128),
+	`subscribe_time` int(10),
+	unique key(`open_id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

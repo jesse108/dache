@@ -64,12 +64,19 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 		
 		switch ($eventType){
 			case WeiXin_Handler::EVENT_TYPE_SUBSCRIBE: //关注
+				$userOpenID = $requestData['FromUserName'];
+				
+				////绑定用户
+				$libUser = new Lib_User();
+				$libUser->bindWeiXinUser($userOpenID);
+				
+				//拼装返回数据
 				$text = $textConfig['subscribe'];
 				$url = $config['server'];
-				$userOpenID = $requestData['FromUserName'];
 				$url .= "?user_open_id={$userOpenID}";
 				$text = $text." <a href='{$url}'>点击进入打车平台</a>";
 				$result = $this->buildTextData($text);
+				
 				break;
 			default:
 				$result = false;

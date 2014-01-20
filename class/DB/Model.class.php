@@ -32,4 +32,24 @@ class DB_Model{
 		$result = DB::Update($this->tableName, $condition, $updateRow,$this->writeDB);
 		return $result;
 	}
+	
+	
+	public function fetch($id,$key = null){
+		if(!$id){
+			return false;
+		}
+		
+		$key = $key ? $key : $this->primaryKey;
+		
+		$condition = array(
+			$key => $id,
+		);
+		$option =array('one' => true);
+		
+		$result = DB::LimitQuery($this->tableName,$condition,$option,$this->readDB);
+		if(!$result){
+			$this->error = DB::$error;
+		}
+		return $result;
+	}
 }
