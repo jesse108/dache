@@ -26,9 +26,11 @@ function classAutoload($strClassName)
 }
 
 spl_autoload_register('classAutoload');
+header('Content-Type: text/html; charset=UTF-8;');
 
 //////////////require
 require_once COM_PATH.'/function.php'; //常用函数
+require_once CONF_PATH . '/constant.class.php';
 require_once PLUGIN_PATH . '/Smarty3/libs/Smarty.class.php'; //加载模板文件
 
 Config::Load();

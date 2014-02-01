@@ -43,7 +43,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 		if(strpos('打车', $content) !== false){
 			$config = $this->config;
 			$server = $config['server'];
-			$url = $server . "?user_open_id={$userOpenID}";
+			$url = $server . "?open_id={$userOpenID}";
 			
 			$text = "需要打车服务? 请访问我们的打车平台 ";
 			$text .= "<a href='{$url}'>点击进入</a>";
@@ -73,7 +73,7 @@ class Lib_WeiXin_RequestHandler implements WeiXin_Handler{
 				//拼装返回数据
 				$text = $textConfig['subscribe'];
 				$url = $config['server'];
-				$url .= "?user_open_id={$userOpenID}";
+				$url .= "?open_id={$userOpenID}";
 				$text = $text." <a href='{$url}'>点击进入打车平台</a>";
 				$result = $this->buildTextData($text);
 				

@@ -44,7 +44,13 @@ class DB_Model{
 		$condition = array(
 			$key => $id,
 		);
-		$option =array('one' => true);
+		
+		if(Util_Array::IsArrayValue($id)){
+			$one = false;
+		} else {
+			$one = true;
+		}
+		$option =array('one' => $one);
 		
 		$result = DB::LimitQuery($this->tableName,$condition,$option,$this->readDB);
 		if(!$result){

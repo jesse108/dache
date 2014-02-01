@@ -61,6 +61,7 @@ create table if not exists `company_route`(
 	`departure` bigint(20) not null,
 	`destination` bigint(20) not null,
 	`status` tinyint(2) not null default 0,
+	`weight` int(10) not null default 0,
 	key(`company_id`),
 	key(`departure`,`destination`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -103,3 +104,12 @@ create table if not exists `weixin_user`(
 	`subscribe_time` int(10),
 	unique key(`open_id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+create table if not exists `order_call_record`(
+	`id` bigint(20) not null primary key auto_increment,
+	`order_id` bigint(20) not null,
+	`ro`
+)ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+

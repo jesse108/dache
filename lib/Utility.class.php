@@ -56,5 +56,42 @@ class Utility{
 	
 	public static function getUserIP($defaultIP = null){ //获取用户IP todo
 		
+		if(isset($_SERVER['HTTP_CLIENTIP'])){
+			$userIP = $_SERVER['HTTP_CLIENTIP'];
+		} else if(isset($_SERVER['REMOTE_ADDR'])){
+			$userIP = $_SERVER['REMOTE_ADDR'];
+		} else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
+			$userIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$intPos = strrpos($userIP, ',');
+			if($intPos > 0){
+				$userIP = substr($userIP, $intPos+1);
+			}
+		} else if(isset($_SERVER['HTTP_CLIENT_IP'])){
+			$userIP = $_SERVER['HTTP_CLIENT_IP'];
+		}
+		$userIP = strip_tags($userIP);
+		$userIP = trim($userIP);
+		
+		if(!$userIP && $defaultIP){
+			$userIP = $defaultIP;
+		}
+		
+		return $userIP;
+	}
+	
+	/**
+	 * 页面跳转函数
+	 *
+	 * 这里使用修改头文件的方式现实页面跳转
+	 * 这里要注意的是调用这个函数之前 页面不能有任何输出 否则跳转失败
+	 * 跳转后会退出程序
+	 *
+	 * @param string $u 跳转页面
+	 */
+	public static function Redirect($u=null) {
+		if (!$u) $u = $_SERVER['HTTP_REFERER'];
+		if (!$u) $u = '/';
+		Header("Location: {$u}");
+		exit;
 	}
 }

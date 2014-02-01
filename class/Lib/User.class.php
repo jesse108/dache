@@ -13,6 +13,9 @@ class Lib_User{
 	}
 	
 	public function login($userID){
+		if(Session::Get(SESSION_LOGIN_USER_ID) == $userID){
+			return true;
+		}
 		$user = $this->dbUser->fetch($userID);
 		
 		if(!Util_Array::IsArrayValue($user)){
@@ -20,13 +23,17 @@ class Lib_User{
 		}
 		$updateRow = array(
 			'login_time' => time(),
-			
+			'login_ip' => Utility::getUserIP(),
 		);
-		
+		$this->dbUser->update(array('id' => $userID), $updateRow);
+		Session::Set(SESSION_LOGIN_USER_ID, $userID);
 		return true;
 	}
 	
 	public function weixinLogin($openID){
+		if(Session::Get(SESSION_LOGIN_WEIXIN_ID) == $openID){
+			return true;
+		}
 		$weixinUser = $this->dbWeiXinUser->fetch($openID,'open_id');
 		if(!Util_Array::IsArrayValue($weixinUser)){
 			$userID = $this->bindWeiXinUser($openID);
@@ -37,22 +44,17 @@ class Lib_User{
 		if(!$userID){
 			return false;
 		}
-		
-		return $this->login($userID);
+		$loginResult = $this->login($userID); 
+		if($loginResult){
+			SESSION::Set(SESSION_LOGIN_WEIXIN_ID, $openID);
+			return true;
+		}
+		return false;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public  function getLoginUserID(){
+		return Session::Get(SESSION_LOGIN_USER_ID);
+	}
 	
 	
 	public function bindWeiXinUser($userOpenID){
