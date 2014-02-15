@@ -6,7 +6,6 @@ class Template{
 	
 	public static function Show($template ='',$parameters = array(),$assignGlobal = true){
 		$smarty = self::GetTemplate();
-		
 		if($assignGlobal){
 			$smarty = self::AssignGlobalVar($smarty);
 		}
@@ -16,7 +15,14 @@ class Template{
 		}
 		
 		if(!$template){
+			$webroot = Config::Get('webroot');
 			$path = $_SERVER['PHP_SELF'];
+			
+			if(trim($webroot,'/')){
+				$webroot = strtr($webroot, array('/' => "\\/","\\" => "\\/"));
+				$path = preg_replace("/$webroot/", '', $path,1);
+			}
+	
 			$path = trim($path,'/');
 			$dotPos = strpos($path,'.');
 			if($dotPos !== false){
