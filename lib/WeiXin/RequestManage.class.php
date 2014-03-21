@@ -21,7 +21,7 @@ class WeiXin_RequestManage{
 		if(!$this->checkSignature()){
 			return false;
 		}
-		/////////验证
+		/////////验证  开通开发者请求
 		if($_GET['echostr']){
 			return $_GET['echostr'];
 		}
