@@ -1,0 +1,19 @@
+{include file="weixin/header.html"}
+<header>
+	<h3 class="title">选择目的地</h3>
+    <a class="return" href="javascript:history.go(-1);"></a>
+</header>
+<section class="city">
+    <div  class="citylist">
+    	{foreach $cities as $city}
+    		<h3>【{$city['name']}】</h3>
+    		<ul>
+    		{foreach $city['sub_locations'] as $location}
+    			<li><a href="/weixin/index.php?destination={$location['id']}">{$location['name']}</a></li>
+    		{/foreach}
+    		</ul>
+    	{/foreach}
+    </div>
+</section>
+<p  class="tip">小助手是一个免费的厦漳泉跨县市打车平台，致力于提供方便快捷，有乘车保障的打车服务</p>
+{include file="weixin/footer.html"}

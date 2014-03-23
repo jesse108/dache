@@ -25,7 +25,17 @@ class Lib_Router{
 		
 		$departureIDs = Util_Array::GetColumn($allRoute, 'departure');
 		$locations = $this->dbLocation->fetch($departureIDs);
-		return $locations;
+		
+		$parentIDs = Util_Array::GetColumn($locations, 'parent_id');
+		$cities = $this->dbLocation->fetch($parentIDs);
+		$cities = Util_Array::AssColumn($cities, 'id');
+		
+		foreach ($locations as $location){
+			$cityID = $location['parent_id'];
+			$cities[$cityID]['sub_locations'][] = $location; 
+		}
+		
+		return $cities;
 	}
 	
 	/**
@@ -40,6 +50,15 @@ class Lib_Router{
 		$routes = $this->dbCompanyRoute->get($condition);
 		$distinationIDs = Util_Array::GetColumn($routes, 'destination');
 		$locations = $this->dbLocation->fetch($distinationIDs);
-		return $locations;
+		
+		$parentIDs = Util_Array::GetColumn($locations, 'parent_id');
+		$cities = $this->dbLocation->fetch($parentIDs);
+		$cities = Util_Array::AssColumn($cities, 'id');
+		
+		foreach ($locations as $location){
+			$cityID = $location['parent_id'];
+			$cities[$cityID]['sub_locations'][] = $location;
+		}
+		return $cities;
 	}
 }

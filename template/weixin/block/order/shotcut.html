@@ -1,0 +1,21 @@
+<section class="alist">
+	<a href="/weixin/order/status.php?order_id={$order['id']}">
+		<label class="state 
+		{if $order['show']['process'] == 0} 
+			state_cheng
+		{else if $order['show']['process'] == 1}
+			state_lv
+		{else}
+			state_hui
+		{/if}
+		"
+		>
+		{$order['show']['process_title']}
+		</label>
+		<div>
+			<p class="name">{$order['show']['show_time']}出发,从{$order['show']['departure']} 到 {$order['show']['destination']}</p>
+			<p class="statep"><span>{$order['show']['create_time']}  </span>提交成功，{$order['show']['status_title']}</p>
+		</div>
+		<i class="icon"></i>
+	</a>
+</section>

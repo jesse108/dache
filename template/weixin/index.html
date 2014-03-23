@@ -1,0 +1,93 @@
+{include file="weixin/header.html"}
+<header>
+	<h2 class="logo">
+    	<a href="#"></a>
+    </h2>
+    <div class="record">
+    	<a href="/weixin/order/list.php">打车记录</a>
+    </div>
+</header>
+{include file="weixin/message.html"}
+
+<!-- 订单列表 -->
+{if $orders = $todayOrders}
+	{include file="weixin/block/order/list.html"}
+{/if}
+
+<form action="/weixin/index.php" method="get">
+	<input type="hidden" name="action" value="submit" />
+	
+	<ul class="slist">
+		<!-- 出发地 -->
+		<li>
+	    	<label class="fLeft"><i class="add"></i>出发地</label>
+	        <a class="fRight" href="/weixin/order_create/select_departure.php"> <i></i>
+	        {if $locationDeparture}
+	        	{$locationDeparture['name']}
+	        {else}
+	        	请选择出发地
+	        {/if}
+	        </a>
+	        
+	    </li>
+	    
+	    <!-- 目的地 -->
+	    <li>
+	    	<label class="fLeft"><i class="add"></i>目的地</label>
+	        <a class="fRight" href="/weixin/order_create/select_destination.php?departure={$order['departure']}"> <i></i>
+	        {if $locationDestination}
+	        	{$locationDestination['name']}
+	        {else}	
+	        	请选择目的地
+	        {/if}
+	        </a>
+	    </li>
+	    
+	    
+	    <li>
+	    	<label class="fLeft" ><i class="time"></i>时间</label>
+	    	<select name="time" class="fRight">
+	    		{foreach $timeArray as $showTime}
+	    		<option value="{$showTime['time']}" {if $order['time'] == $showTime['time']}selected{/if}>{$showTime['title']}</option>
+	    		{/foreach}
+	    	</select>
+	    </li>
+	    
+	    <li>
+	    	<label class="fLeft"><i class="num"></i>人数</label>
+	    	<select name="num" class="fRight">
+	    		<option value="">请选择人数</option>
+	    		{for $i =1;$i<=$maxNum;$i++}
+	    		<option value="{$i}" {if $order['num'] == $i} selected {/if}>{$i}人</option>	
+	    		{/for}
+	    	</select>
+	    </li>
+	</ul>
+	<ul class="slist">
+		<li>
+	    	<label class="fLeft"><i class="phone"></i>联系人手机号</label>
+	    	<input class="fRight" type="text" name="contact_mobile" value="{$order['contact_mobile']}"  placeholder="请填写手机号"/>
+	    </li>
+	</ul>
+
+	<div class="inputbtu">
+		<input class="btu" type="submit" value="立即打车"/>
+	</div>
+</form>
+
+<p class="tip">小助手提醒：订单提交成功后，出租车师傅会电话联系您，并提供接送服务，乘车费用请咨询司机。</p>
+<ul class="about">
+	<li><i class="ico ico1 "></i>
+    	<p>已打通厦漳泉地区<span>285</span>家提供跨县市打车业务的出租车公司，<span>保障</span>上车率，<span>缩短</span>等待时间。</p>
+    </li>
+    <li><i class="ico ico2 "></i>
+    	<p>订单提交成功后，<span>1-5分钟</span>内响应，可<span>实时跟踪</span>订单状态，再也不用担心无人接送。</p>
+    </li>
+    <li><i class="ico ico3 "></i>
+    	<p>再也不用记<span>烦人的电话号码</span>，一键免费提交订单，后台<span>智能</span>选择可提供接送服务的出租车公司。</p>
+    </li>
+</ul>
+<p class="tip">小助手是一个免费的厦漳泉跨县市打车平台，致力于提
+供方便快捷，有乘车保障的打车服务。</p>
+
+{include file="weixin/footer.html"}

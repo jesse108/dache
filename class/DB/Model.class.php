@@ -14,6 +14,9 @@ class DB_Model{
 			return false;
 		}
 		$insertID = DB::Insert($table, $condition,$duplicateCondition,$this->writeDB);
+		if(!$insertID){
+			$this->error = DB::$error;
+		}
 		return $insertID;	
 	}
 	
@@ -25,6 +28,9 @@ class DB_Model{
 			return false;
 		}
 		$result = DB::LimitQuery($table,$condition,$option,$dbType);
+		if(!$result){
+			$this->error = DB::$error;
+		}
 		return $result;
 	}
 	

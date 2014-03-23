@@ -1,5 +1,6 @@
 <?php
 //
+session_start();
 ini_set('precision', 16);  //这只浮点型精度
 define('ROOT_PATH', dirname(__FILE__));
 define('LIB_PATH', ROOT_PATH.'/lib');
@@ -35,5 +36,8 @@ require_once PLUGIN_PATH . '/Smarty3/libs/Smarty.class.php'; //加载模板文�
 
 Config::Load();
 
+if($_GET['debug']){
+	DB::Debug(true);
+}
 
 

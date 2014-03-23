@@ -6,7 +6,12 @@
  *
  */
 class DB_OrderTrack extends DB_Model{
+	const STATTUS_CALLING = 0;
+	const STATTUS_ACCEPT = 1;
+	const STATUS_REFUSE = 2;
+	
 	public $tableName = 'order_track';
+	
 	
 	public function create($condition,$duplicateCondition = NULL){
 		$time = time();

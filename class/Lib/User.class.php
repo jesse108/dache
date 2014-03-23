@@ -59,12 +59,12 @@ class Lib_User{
 	
 	public function bindWeiXinUser($userOpenID){
 		$weixinUser = $this->dbWeiXinUser->fetch($userOpenID,'open_id');
-		dump($weixinUser);exit;
 		if(!$weixinUser){
 			///先创建user
-			$user = array();
+			$user = array(
+				'username' => "weixin_{$userOpenID}",
+			);
 			$userID = $this->dbUser->create($user);
-			
 			if($userID){
 				$weixinUser = array(
 					'user_id' => $userID,

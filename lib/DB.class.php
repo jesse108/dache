@@ -303,11 +303,11 @@ class DBObject{
 	function query($sql){
 		$this->count++;
 		if($this->debug){
-			Util_Time::timerStart($sql);
+			Util_Time::TimerStart($sql);
 		}
 		$result = @mysql_query($sql,$this->_connection);
 		if($this->debug){
-			$duration = Util_Time::timerStop($sql);
+			$duration = Util_Time::TimerStop($sql);
 			$rowNum = mysql_affected_rows($this->_connection);
 			$count = $this->count;
 			echo "

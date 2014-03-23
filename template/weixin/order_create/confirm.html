@@ -1,0 +1,36 @@
+{include file="weixin/header.html"}
+<header>
+	<h3 class="title">确认订单</h3>
+    <a class="return"  href="javascript:history.go(-1);"></a>
+</header>
+<dl class="dlist">
+	<dd>
+    	<label>出发地</label>
+        <span>{$orderShow['departure']}</span>
+    </dd>
+    <dd>
+    	<label>目的地</label>
+        <span>{$orderShow['destination']}</span>
+    </dd>
+    <dd>
+    	<label>时间</label>
+        <span>{$orderShow['show_time']}</span>
+    </dd>
+    <dd>
+    	<label>人数</label>
+        <span>{$order['num']}人</span>
+    </dd>
+    <dd>
+    	<label>联系人手机号</label>
+        <span>{$order['contact_mobile']}</span>
+    </dd>
+</dl>
+<div class="inputbtu">
+	<form action="/weixin/order_create/confirm.php" method="post">
+		<input type="hidden" name="action" value="confirm" />
+		<input class="btu" type="submit" value="确认提交订单"/>
+	</form>
+</div>
+<p class="tip">小助手提醒：订单提交成功后，出租车师傅会电话联系您，并提供接送服务，乘车费用请咨询司机。</p>
+
+{include file="weixin/footer.html"}

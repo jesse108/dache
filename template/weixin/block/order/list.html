@@ -1,0 +1,7 @@
+{if $orders}
+	{foreach $orders as $order}
+	{include file="weixin/block/order/shotcut.html"}
+	{/foreach}
+{else}
+	目前没有订单
+{/if}

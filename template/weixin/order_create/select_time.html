@@ -1,0 +1,107 @@
+{include file="weixin/header.html"}
+<header>
+	<h3 class="title">选择出发时间</h3>
+    <a class="return" href="javascript:history.go(-1);"></a>
+</header>
+<form action="/weixin/index.php" method="get">
+	<select id="day">
+	</select>
+	
+	<select id="half_day">
+		
+	</select>
+	
+	<select id="hour">
+	
+	</select>
+	
+	<select id="time" name="time">
+		
+	</select>
+	
+	<br />
+	<input type="submit" value="提交"/>
+</form>
+
+<p  class="tip">小助手是一个免费的厦漳泉跨县市打车平台，致力于提供方便快捷，有乘车保障的打车服务</p>
+{include file="weixin/footer.html"}
+
+<script>
+var timeArray=new Array();
+{foreach $showTimeArray as $day}
+	day_id = "{$day['value']}";
+	day=new Array(day_id,"根目录",day_id); //数据格式 ID，父级ID，名称
+	timeArray.push(day);
+	
+	{foreach $day['sub_array'] as $half_day}
+		half_day_id = day_id + "_{$half_day['value']}";
+		half_day = new Array(half_day_id,day_id,"{$half_day['value']}");
+		timeArray.push(half_day);
+		
+		{foreach $half_day['sub_array'] as $hour}
+			hour_id = half_day_id + "_{$hour['value']}";
+			hour = new Array(hour_id,half_day_id,"{$hour['value']}时");
+			timeArray.push(hour);
+			
+			{foreach $hour['sub_array'] as $miniute}
+				miniute_id = {$miniute['value']};
+				miniute = new Array(miniute_id,hour_id,"{$miniute['title']}分");
+				timeArray.push(miniute);
+			{/foreach}
+		{/foreach}
+	{/foreach}
+{/foreach}
+
+var liandong=new CLASS_LIANDONG_YAO(timeArray) //设置数据源
+liandong.firstSelectChange("根目录","day"); //设置第一个选择框
+liandong.subSelectChange("day","half_day"); //设置子级选择框
+liandong.subSelectChange("half_day","hour");
+liandong.subSelectChange("hour","time");
+	  
+  function CLASS_LIANDONG_YAO(array)
+  {
+   //数组，联动的数据源
+  	this.array=array; 
+  	this.indexName='';
+  	this.obj='';
+  	//设置子SELECT
+	// 参数：当前onchange的SELECT ID，要设置的SELECT ID
+      this.subSelectChange=function(selectName1,selectName2)
+  	{
+  	//try
+  	//{
+    var obj1=document.all[selectName1];
+    var obj2=document.all[selectName2];
+    var objName=this.toString();
+    var me=this;
+    obj1.onchange=function()
+    {
+    	me.optionChange(this.options[this.selectedIndex].value,obj2.id)
+    }
+  	}
+  	//设置第一个SELECT
+	// 参数：indexName指选中项,selectName指select的ID
+  	this.firstSelectChange=function(indexName,selectName)  
+  	{
+  	this.obj=document.all[selectName];
+  	this.indexName=indexName;
+  	this.optionChange(this.indexName,this.obj.id)
+  	}
+  // indexName指选中项,selectName指select的ID
+  	this.optionChange=function (indexName,selectName)
+  	{
+    var obj1=document.all[selectName];
+    var me=this;
+    obj1.length=0;
+    obj1.options[0]=new Option("请选择",'');
+    for(var i=0;i<this.array.length;i++)
+    {	
+    	if(this.array[i][1]==indexName)
+    	{
+    	//alert(this.array[i][1]+" "+indexName);
+      obj1.options[obj1.length]=new Option(this.array[i][2],this.array[i][0]);
+    	}
+    }
+  	}	
+  }
+  </script>

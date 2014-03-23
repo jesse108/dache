@@ -17,6 +17,10 @@ class Session{
 		$_SESSION[$key] = $value;
 	}
 	
+	public static function Del($key){
+		unset($_SESSION[$key]);
+	}
+	
 	public static function getAll(){
 		$session = $_SESSION;
 		return $session;
