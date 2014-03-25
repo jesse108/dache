@@ -14,6 +14,10 @@ class DB_Order extends DB_Model{
 	const STATUS_DEL = 3; //删除订单
 	const STATUS_ACCEPT_ON = 10;//成功上车
 	
+	
+	const CALL_STATUS_NO_CALL = 0; // 呼叫状态 无呼叫
+	const CALL_STATUS_CALLING = 1; // 呼叫状态  呼叫中 
+	
 	public static $staticArray = array(
 		self::STATUS_NORMAL => array('title' => '等待接单'),
 		self::STATUS_ACCEPT => array('title' => '已接单'),

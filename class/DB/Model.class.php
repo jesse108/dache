@@ -17,7 +17,7 @@ class DB_Model{
 		if(!$insertID){
 			$this->error = DB::$error;
 		}
-		return $insertID;	
+		return $insertID;
 	}
 	
 	public function get($condition,$option = array()){

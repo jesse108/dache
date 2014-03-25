@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `company_route` (
   `departure` bigint(20) NOT NULL COMMENT '出站',
   `destination` bigint(20) NOT NULL COMMENT '目的地',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
-  `weight` int(10) NOT NULL DEFAULT '0' COMMENT '权重',
+  `weight` int(10) NOT NULL DEFAULT '1' COMMENT '权重',
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   KEY `departure` (`departure`,`destination`)
@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS `order` (
   `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '修改时间',
   `comment` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `call_status` tinyint(2) not null default 0 commnet '呼叫状态 0:无呼叫  1: 呼叫中',
+  `last_call_time` int(10) not null default 0 comment '最后呼叫时间',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `departure` (`departure`,`destination`),
@@ -111,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `order_track` (
   `order_id` bigint(20) NOT NULL,
   `company_id` bigint(20) NOT NULL COMMENT '公司ID',
   `create_time` int(10) NOT NULL DEFAULT '0',
+  `finish_time` int(10) not null default '0',
   `status` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
@@ -159,3 +162,18 @@ CREATE TABLE IF NOT EXISTS `weixin_user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `open_id` (`open_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE IF NOT EXISTS `router_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_time` int(10) not null default 0,
+  `departure` bigint(20) not null default 0,
+  `destination` bigint(20) not null default 0,
+  `company_id` bigint(20) not null default 0,
+  `company_route_id` bigint(20) not null default 0,
+  `order_id` bigint(20) not null default 0,
+  `user_id` bigint(20) not null default 0,
+  PRIMARY KEY (`id`),
+  key(`departure`,`destination`),
+  key(`company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户' AUTO_INCREMENT=1 ;

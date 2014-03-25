@@ -1,15 +1,7 @@
 <?php
 include_once dirname(dirname(__FILE__)).'/app.php';
-$libUser =new Lib_User();
+$orderID = 6;
 
-if($_GET['open_id']){
-	$libUser->weixinLogin($_GET['open_id']);
-}
-
-$loginUserID = $libUser->getLoginUserID();
-
-//////////////获取所有路线信息
-$libRouter = new Lib_Router();
-$departures = $libRouter->getAllDeparture();
+$obj = new Lib_Order_Business();
 
 Template::Show();
