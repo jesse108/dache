@@ -143,11 +143,34 @@ class Lib_Cloopen{
 	}
 	
 	
-	public function landingCalls($to){
+	public function landingCalls($to,$mediaTxt = '',$mediaName = '',$displayNum = '',$playTimes = 2,$respUrl = ''){
+		if(!$mediaName && !$mediaTxt){
+			return false;
+		}
+		
 		$data = array(
-				'subAccountSid' => $subAccountSid,
+			'appId' => $this->appID,
+			'to' => $to,
+			'playTimes' => $playTimes,
 		);
-		$action = 'CloseSubAccount';
+		
+		if($mediaName){
+			$data['mediaName'] = $mediaName;
+		}
+		
+		if($mediaTxt){
+			$data['mediaTxt'] = $mediaTxt;
+		}
+		
+		if($displayNum){
+			$data['displayNum'] = $displayNum;
+		}
+		
+		if($respUrl){
+			$data['resUrl'] = $respUrl;
+		}
+		
+		$action = 'Calls/LandingCalls';
 		$result = $this->request($action,$data);
 		return $result;
 	}

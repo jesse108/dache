@@ -3,7 +3,5 @@
  * 语音开放平台请求处理
  */
 
-$result = file_get_contents("php://input");
 
-Log::Set($result,$type=2);
-
+Lib_Cloopen_RequestHandler::HandleRequest();
