@@ -18,6 +18,8 @@ class Lib_Cloopen{
 	public $subVoipAccount;
 	public $subVoipPwd;
 	
+	public $respUrl = "http://www.dachequ.com/cloopen.php"; //默认回调地址
+	
 	public function __construct(){
 		$config = Config::Get('cloopen');
 		$this->appID = $config['app_id'];
@@ -54,7 +56,6 @@ class Lib_Cloopen{
 			'friendlyName' => $friendlyName,
 		);
 		$action = 'SubAccounts';
-		
 		$result = $this->request($action, $data);
 		return $result;
 	}
@@ -142,11 +143,22 @@ class Lib_Cloopen{
 		return $result;
 	}
 	
-	
+	/**
+	 * 营销呼叫
+	 * 
+	 * @param string $to 呼叫号码
+	 * @param string $mediaTxt 呼叫内容
+	 * @param string $mediaName 呼叫音频名字
+	 * @param string $displayNum  对方显示号码
+	 * @param number $playTimes 播放次数
+	 * @param string $respUrl  回调地址
+	 * @return boolean|mixed
+	 */
 	public function landingCalls($to,$mediaTxt = '',$mediaName = '',$displayNum = '',$playTimes = 2,$respUrl = ''){
 		if(!$mediaName && !$mediaTxt){
 			return false;
 		}
+		$respUrl = $respUrl ? $respUrl : $this->respUrl;
 		
 		$data = array(
 			'appId' => $this->appID,
@@ -167,7 +179,7 @@ class Lib_Cloopen{
 		}
 		
 		if($respUrl){
-			$data['resUrl'] = $respUrl;
+			$data['respUrl'] = $respUrl;
 		}
 		
 		$action = 'Calls/LandingCalls';
@@ -175,6 +187,40 @@ class Lib_Cloopen{
 		return $result;
 	}
 	
+	
+	public function callVoiceVerify($verifyCode,$to,$displayNum = '', $playTimes = 3,$respUrl = ''){
+		$respUrl = $respUrl ? $respUrl : $this->respUrl;
+		$data = array(
+			'appId' => $this->appID,
+			'verifyCode' => $verifyCode,
+			'to' => $to,
+			'playTimes' => $playTimes,
+			'respUrl' => $respUrl,
+		);
+		if($displayNum){
+			$data['displayNum'] = $displayNum;
+		}
+		$action = 'Calls/VoiceVerify';
+		$result = $this->request($action,$data);
+		return $result;		
+	}
+	
+	
+	////////////////IVR 呼叫
+	
+	public function ivrDial($number,$record = false){
+		$data = array(
+			'Appid' => $this->appID,
+			'Dial' => array(
+				'attribute' => array('number' => $number),
+			),
+			'record' => $record ? 'true' : 'false',
+		);
+		$data = self::BuildXML($data, 'Request');
+		$action = 'ivr/dial';
+		$result = $this->request($action,$data,'POST',true,'xml');
+		return $result;
+	}
 	
 	
 	/**
@@ -185,7 +231,7 @@ class Lib_Cloopen{
 	 * @param boolean $sub 是否使用子账号
 	 * @return mixed
 	 */
-	public function request($action,$data = null,$method = "POST",$main = true){
+	public function request($action,$data = null,$method = "POST",$main = true,$format = 'json'){
 		$url = $this->restUrl;
 		$timeStr = date('YmdHis');
 		$softVersion = $this->softVersion;
@@ -206,15 +252,50 @@ class Lib_Cloopen{
 		
 		$url = "{$url}/{$softVersion}/{$accountType}/{$account}/$action?sig={$sig}";
 		$authen = base64_encode("{$account}:{$timeStr}");
-		$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
 		
-		if($data){
-			$data = json_encode($data);
+		
+		if($format == 'xml'){
+			$header = array("Accept:application/xml","Content-Type:application/xml;charset=utf-8","Authorization:$authen");
+		} else {//json
+			$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
+			if($data){
+				$data = json_encode($data);
+			}
 		}
 		$result = Util_HttpRequest::Http($url, $method,$data,$header);
 		if($result){
-			$result = json_decode($result,true);
+			if($format == 'xml'){
+				$result = simplexml_load_string($result);
+				$result = $result ? Util_Array::ObjectToArray($result) : $result;
+			} else {
+				$result = json_decode($result,true);
+			}
 		}
 		return $result;
+	}
+	
+	public static function BuildXML($data,$parentTag){
+		if(!Util_Array::IsArrayValue($data)){
+			return $data;
+		}
+		
+		$xml = '';
+		foreach ($data as $index => $one){
+			if(is_array($one)){
+				if($one['attribute']){
+					$attribute = '';
+					foreach ($one['attribute'] as $akey => $aval){
+						$attribute .= " {$akey}=\"{$aval}\"";
+					}
+				}
+				$value = strval($one['value']);
+				$xml .= "<{$index}{$attribute}>{$value}</{$index}>";
+			} else {
+				$xml .= "<{$index}>{$one}</{$index}>";
+			}
+		}
+		
+		$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><{$parentTag}> {$xml} </{$parentTag}>";
+		return $xml;
 	}
 }
