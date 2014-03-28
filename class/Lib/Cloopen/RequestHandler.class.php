@@ -5,7 +5,10 @@ class Lib_Cloopen_RequestHandler{
 		$rawData = file_get_contents("php://input");
 		$rawData = trim($rawData," \t\n\r");
 		$data = simplexml_load_string($rawData);
-		$data = Util_Array::ObjectToArray($data);
+		if($data){
+			$data = Util_Array::ObjectToArray($data);
+		}
+		
 		$action = $data['action'];
 		
 		switch($action){
