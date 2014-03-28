@@ -142,6 +142,18 @@ class Lib_Cloopen{
 		return $result;
 	}
 	
+	
+	public function landingCalls($to){
+		$data = array(
+				'subAccountSid' => $subAccountSid,
+		);
+		$action = 'CloseSubAccount';
+		$result = $this->request($action,$data);
+		return $result;
+	}
+	
+	
+	
 	/**
 	 * 请求
 	 * @param string $action 请求方法
