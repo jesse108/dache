@@ -26,7 +26,7 @@ class Log_DB implements Log_Model{
 		$log = array(
 			'type' => intval($type),
 			'url' => $url,
-			'post_data' => $GLOBALS["HTTP_RAW_POST_DATA"],
+			'post_data' => file_get_contents("php://input"),
 			'content' => $data,
 			'create_time' => time(),
 		);
