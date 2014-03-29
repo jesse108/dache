@@ -7,7 +7,6 @@ class Lib_Order_Manage{
 		$condition = array(
 			'status' => DB_Order::STATUS_NORMAL,
 			'call_status' => DB_Order::CALL_STATUS_NO_CALL,
-			'id' => 8,
 		);
 		
 		$option = array(
@@ -43,5 +42,25 @@ class Lib_Order_Manage{
 			}
 		}
 		return false;
+	}
+	
+	
+	public static function RefuseTimeoutOrders(){
+		$maxCallTime = 120; //最大呼叫时间两分钟
+		$time = time();
+		$time = $time - $maxCallTime;
+		
+		$dbOrderTrack= new DB_OrderTrack();
+		$condition  = array(
+			"call_time < {$time}",
+			'status' => DB_OrderTrack::STATTUS_CALLING, 
+		);
+		$orderTracks = $dbOrderTrack->get($condition);
+		if($orderTracks){
+			$libOrderBusiness = new Lib_Order_Business();
+			foreach ($orderTracks as $orderTrack){
+				$libOrderBusiness->refuse($orderTrack);	
+			}
+		}
 	}
 }

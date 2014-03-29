@@ -53,6 +53,7 @@ class Lib_Order_Business{
 			'order_id' => $order['id'],
 			'company_id' => $companyID,
 			'call_id' => $callID,
+			'call_time ' => time(),
 			'status' => DB_OrderTrack::STATTUS_CALLING,
 		);
 		$trackID = $this->dbOrderTrack->create($orderTrack);
@@ -78,10 +79,9 @@ class Lib_Order_Business{
 	/**
 	 * 出租车公司接受订单
 	 */
-	public function accept($orderTrackID){
-		$orderTrack = $this->dbOrderTrack->fetch($orderTrackID);
+	public function accept($orderTrack){
 		if(!Util_Array::IsArrayValue($orderTrack)){
-			$this->error = "没有此呼叫记录:{$orderTrackID}";
+			$this->error = "没有此呼叫记录";
 			return false;
 		}
 		
@@ -101,10 +101,10 @@ class Lib_Order_Business{
 			'status' => DB_OrderTrack::STATTUS_ACCEPT,
 			'finish_time' => time(),
 		);
-		$this->dbOrderTrack->update(array('id'=>$orderTrackID), $trackUpdate);
+		$this->dbOrderTrack->update(array('id'=>$orderTrack['id']), $trackUpdate);
 		
 		$companyUpdate = array(
-			'call_status' => DB_Company::CALL_STATUS_NO_CALL,	
+			'call_status' => DB_Company::CALL_STATUS_NO_CALL,
 		);
 		$this->dbCompany->update(array('id' =>$orderTrack['company_id']), $companyUpdate);
 		
@@ -114,26 +114,20 @@ class Lib_Order_Business{
 	/**
 	 * 出租车公司拒绝订单
 	 */
-	public function refuse($orderTrackID){
-		$orderTrack = $this->dbOrderTrack->fetch($orderTrackID);
+	public function refuse($orderTrack){
 		if(!Util_Array::IsArrayValue($orderTrack)){
-			$this->error = "没有此呼叫记录:{$orderTrackID}";
+			$this->error = "没有此呼叫记录";
 			return false;
 		}
 		
 		$order = $this->dbOrder->fetch($orderTrack['order_id']);
-		if(!in_array($order['status'], self::$acceptOrderStatus)){
-			$this->error = "订单状态不对, order_status:{$order['status']}";
-			return false;
-		}
-		
 		
 		///////更新呼叫记录状态
 		$trackUpdate = array(
 				'status' => DB_OrderTrack::STATUS_REFUSE,
 				'finish_time' => time(),
 		);
-		$this->dbOrderTrack->update(array('id'=>$orderTrackID), $trackUpdate);
+		$this->dbOrderTrack->update(array('id'=>$orderTrack['id']), $trackUpdate);
 		
 		////////////根据情况更新订单状态
 		$availableCompanyIDs = $this->getAvailableCompanyIDList($order['departure'], $order['destination'],false); //可用公司
@@ -142,12 +136,13 @@ class Lib_Order_Business{
 		$countTrack = count($orderTracks);
 		
 		$orderUpdate = array(
-			'call_status' => DB_Order::CALL_STATUS_NO_CALL
+				'call_status' => DB_Order::CALL_STATUS_NO_CALL
 		);
 		if($countTrack >= count($availableCompanyIDs) || $countTrack >= self::MAX_CALL_NUM){
 			$orderUpdate['status'] = DB_OrderTrack::STATUS_REFUSE;
 		}
 		$this->dbOrder->update(array('id'=>$order['id']), $orderUpdate);
+
 		
 		$companyUpdate = array(
 				'call_status' => DB_Company::CALL_STATUS_NO_CALL,

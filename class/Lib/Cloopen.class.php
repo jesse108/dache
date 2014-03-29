@@ -215,6 +215,7 @@ class Lib_Cloopen{
 				'attribute' => array('number' => $number),
 			),
 			'record' => $record ? 'true' : 'false',
+			'userdata' => '1234'
 		);
 		$data = self::BuildXML($data, 'Request');
 		$action = 'ivr/dial';
