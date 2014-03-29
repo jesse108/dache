@@ -8,4 +8,7 @@ $loginUserID = $libUser->getLoginUserID();
 $libRouter = new Lib_Router();
 $departures = $libRouter->getAllDeparture();
 
+//////获取之前打车过的路线
+$pastRoutes = $libUser->getLastUserRoute($loginUserID);
+
 Template::Show();

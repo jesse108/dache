@@ -86,6 +86,7 @@ class Lib_Order{
 		
 		if(!$order){
 			$this->error = $this->dbOrder->error;
+			return false;
 		}
 		
 		return $order;
@@ -162,11 +163,11 @@ class Lib_Order{
 	public static function  GetReadableOrder($order){
 		$locationDeparture = Lib_Location::Fetch($order['departure']);
 		$cityDeparture = Lib_Location::Fetch($locationDeparture['parent_id']);
-		$showDeparture = "{$cityDeparture['name']} {$locationDeparture['name']}";
+		$showDeparture = "{$cityDeparture['name']}市{$locationDeparture['name']}";
 		
 		$locationDestination = Lib_Location::Fetch($order['destination']);
 		$cityDestination = Lib_Location::Fetch($locationDestination['parent_id']);
-		$showDestination = "{$cityDestination['name']} {$locationDestination['name']}";
+		$showDestination = "{$cityDestination['name']}市{$locationDestination['name']}";
 		
 		$showTime = Util_Time::getManReadTime($order['time']);
 		

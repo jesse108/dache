@@ -1,5 +1,6 @@
 <?php
 class Lib_Order_Business{
+	const MAX_CALL_NUM = 5; //最大呼叫次数
 	public $error;
 	private $dbOrder;
 	private $dbCompany;
@@ -21,9 +22,11 @@ class Lib_Order_Business{
 	}
 	
 	/**
-	 * 给一家出租车公司打电话
+	 * 给一家出租车公司打电话   注意 这里不做任何电信
 	 */
-	public function call($order,$companyID){
+	public function call($order,$companyID,$callID = ''){
+		
+		///验证
 		if(!Util_Array::IsArrayValue($order)){
 			$this->error = "订单ID不对";
 			return false;
@@ -45,9 +48,11 @@ class Lib_Order_Business{
 			return false;
 		}
 		
+		/////////////更新各种状态
 		$orderTrack = array(
 			'order_id' => $order['id'],
 			'company_id' => $companyID,
+			'call_id' => $callID,
 			'status' => DB_OrderTrack::STATTUS_CALLING,
 		);
 		$trackID = $this->dbOrderTrack->create($orderTrack);
@@ -60,6 +65,11 @@ class Lib_Order_Business{
 			'last_call_time' => time(),
 		);
 		$this->dbOrder->update(array('id'=> $order['id']), $orderUpdate);
+		
+		$companyUpdate = array(
+			'call_status' => DB_Order::CALL_STATUS_CALLING,
+		);
+		$this->dbCompany->update(array('id' => $companyID), $companyUpdate);
 		
 		Lib_RouterLog::Log($order, $companyID);
 		return $trackID;
@@ -92,6 +102,12 @@ class Lib_Order_Business{
 			'finish_time' => time(),
 		);
 		$this->dbOrderTrack->update(array('id'=>$orderTrackID), $trackUpdate);
+		
+		$companyUpdate = array(
+			'call_status' => DB_Company::CALL_STATUS_NO_CALL,	
+		);
+		$this->dbCompany->update(array('id' =>$orderTrack['company_id']), $companyUpdate);
+		
 		return true;
 	}
 	
@@ -120,19 +136,25 @@ class Lib_Order_Business{
 		$this->dbOrderTrack->update(array('id'=>$orderTrackID), $trackUpdate);
 		
 		////////////根据情况更新订单状态
-		$availableCompanyIDs = $this->getAvailableCompanyIDList($order['departure'], $order['destination']); //可用公司
+		$availableCompanyIDs = $this->getAvailableCompanyIDList($order['departure'], $order['destination'],false); //可用公司
 		$libOrder = new Lib_Order();
 		$orderTracks = $libOrder->getOrderTrack($order['id']);
+		$countTrack = count($orderTracks);
 		
 		$orderUpdate = array(
 			'call_status' => DB_Order::CALL_STATUS_NO_CALL
 		);
-		if(count($orderTracks) >= count($availableCompanyIDs)){
+		if($countTrack >= count($availableCompanyIDs) || $countTrack >= self::MAX_CALL_NUM){
 			$orderUpdate['status'] = DB_OrderTrack::STATUS_REFUSE;
 		}
 		$this->dbOrder->update(array('id'=>$order['id']), $orderUpdate);
 		
-		return true;		
+		$companyUpdate = array(
+				'call_status' => DB_Company::CALL_STATUS_NO_CALL,
+		);
+		$this->dbCompany->update(array('id' =>$orderTrack['company_id']), $companyUpdate);
+		
+		return true;
 	}
 	
 	/**
@@ -217,10 +239,13 @@ class Lib_Order_Business{
 	
 	/**
 	 * 获取指定路线可用的公司列表
+	 * 需要加入判断   目前正在通话的公司是否需要加入列表 ? todo
+	 * 
 	 * @param unknown $departure
 	 * @param unknown $destinition
+	 * @param $free  是否空闲
 	 */
-	public function getAvailableCompanyIDList($departure,$destination){
+	public function getAvailableCompanyIDList($departure,$destination,$free = true){
 		$condition = array(
 			'departure' => $departure,
 			'destination' => $destination,
@@ -230,6 +255,21 @@ class Lib_Order_Business{
 		$option =array('select' => 'company_id');
 		$companyIDList = $this->dbCompanyRoute->get($condition);
 		$companyIDList = Util_Array::GetColumn($companyIDList, 'company_id');
+		
+		if($free){
+			$condition = array(
+				'id' => $companyIDList,
+				'call_status' => DB_Company::CALL_STATUS_NO_CALL,
+			);
+			$option = array('select' => 'id');
+			$companys = $this->dbCompany->get($condition,$option);
+			if($companys){
+				$companyIDList = Util_Array::GetColumn($companys, 'id');
+			} else {
+				$companyIDList = array();
+			}
+		}
+		
 		return $companyIDList;
 	}
 	

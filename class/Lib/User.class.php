@@ -87,6 +87,49 @@ class Lib_User{
 		return $result;
 	}
 	
-	
+	/**
+	 * 获取用户打过的路线
+	 */
+	public function getLastUserRoute($userID,$num = 3){
+		if(!$userID){
+			return false;
+		}
+		$dbOrder = new DB_Order();
+		$delStatus = DB_Order::STATUS_DEL;
+		$condition = array(
+			'user_id' => $userID,
+			"status <> {$delStatus}",
+		);
+		
+		$option = array(
+			'select' => 'distinct departure,destination',
+			'size' => $num,
+		);
+		$routes = $dbOrder->get($condition,$option); //最近的订单路线
+		
+		$result = array();
+		if(Util_Array::IsArrayValue($routes)){
+			foreach ($routes as $index => $one){
+				$departure = $one['departure'];
+				$destination = $one['destination'];
+				
+				$departureLocation = Lib_Location::Fetch($departure);
+				$destinationLocation = Lib_Location::Fetch($destination);
+				$departureCity = Lib_Location::Fetch($departureLocation['parent_id']);
+				$destinationCity = Lib_Location::Fetch($destinationLocation['parent_id']);
+				
+				$route = array(
+					'departure' => $departure,
+					'departure_name' => $departureCity['name'] .'市'. $departureLocation['name'],
+					'destination' => $destination,
+					'destination_name' => $destinationCity['name'].'市'.$destinationLocation['name'],
+				);
+				$result[] = $route;
+			}
+		}
+		
+		
+		return $result;
+	}
 	
 }

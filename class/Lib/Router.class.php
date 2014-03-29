@@ -24,11 +24,10 @@ class Lib_Router{
 		}
 		
 		$departureIDs = Util_Array::GetColumn($allRoute, 'departure');
-		$locations = $this->dbLocation->fetch($departureIDs);
+		$locations = Lib_Location::Fetch($departureIDs);
 		
 		$parentIDs = Util_Array::GetColumn($locations, 'parent_id');
-		$cities = $this->dbLocation->fetch($parentIDs);
-		$cities = Util_Array::AssColumn($cities, 'id');
+		$cities = Lib_Location::Fetch($parentIDs);
 		
 		foreach ($locations as $location){
 			$cityID = $location['parent_id'];

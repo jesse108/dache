@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `comment` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '注释',
   `create_time` int(10) NOT NULL DEFAULT '0',
   `update_time` int(10) NOT NULL DEFAULT '0',
+  `call_status` tinyint(2) not null default 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='单位' AUTO_INCREMENT=1 ;
 
@@ -113,13 +114,16 @@ CREATE TABLE IF NOT EXISTS `order_track` (
   `order_id` bigint(20) NOT NULL,
   `company_id` bigint(20) NOT NULL COMMENT '公司ID',
   `create_time` int(10) NOT NULL DEFAULT '0',
+  `call_time` int(10) not null default 0,
   `finish_time` int(10) not null default '0',
+  `call_id` varchar(64),
   `status` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  key (`call_id`),
   KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单跟踪' AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
+
 
 --
 -- 表的结构 `user`

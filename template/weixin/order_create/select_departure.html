@@ -7,9 +7,11 @@
 	<div class="citylist">
     	<h3>以前打过车的线路:</h3>
         <div class="cong">
-        	<a href="#">从漳州市到坂仔镇</a>
-            <a href="#">从坂仔镇到漳州市</a>
-            <a href="#">从厦门市到漳州市</a>
+        {if $pastRoutes}
+        	{foreach $pastRoutes as $route}
+        		<a href="/weixin/index.php?departure={$route['departure']}&destination={$route['destination']}">从 {$route['departure_name']} 到 {$route['destination_name']}</a>
+        	{/foreach}
+        {/if}
         </div>
     </div>
     <div  class="citylist">
