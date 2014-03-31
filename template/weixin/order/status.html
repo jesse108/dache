@@ -5,13 +5,18 @@
     <a class="return" href="/weixin/index.php"></a>
 </header>
 
-<section class="status">
-	<h3 class="stitle clearfix">订单完成
-    	<span class="icon"></span>
-        <a class="reload" href="#">刷新</a>
-    </h3>
-    <p class="os_p">您的订单已成功提交，已推送给<span>0</span>家出租车公司，等待接单……</p>
-</section>
+{if $order['status'] == DB_Order::STATUS_NORMAL}
+	{include file="weixin/block/order/status_wait.html"}
+{else if $order['status'] == DB_Order::STATUS_REFUSE}
+	{include file="weixin/block/order/status_refuse.html"}
+{else if $order['status'] == DB_Order::STATUS_ACCEPT}
+	{include file="weixin/block/order/status_accept.html"}
+{else if $order['status'] == DB_Order::STATUS_ACCEPT_ON && !$evaluation}
+	{include file="weixin/block/order/status_evaluate.html"}
+{else if $evaluation}
+	{include file="weixin/block/order/status_evaluation.html"}
+{/if}
+
 
 {include file="weixin/block/order/status.html"}
 {include file="weixin/footer.html"}

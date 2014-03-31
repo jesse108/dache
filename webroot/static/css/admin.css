@@ -1,0 +1,59 @@
+.sidebar{
+	padding-top: 50px;
+	width:150px;
+}
+
+.admin_main{
+	padding-top:40px;
+}
+
+.inside_nav{
+	margin-bottom:10px;
+}
+
+.admin_table{
+	width: 900px;
+}
+
+
+.header{
+	background:#660099;
+	color:#FFFFFF;
+	padding:10px 30px 10px 20px;
+	margin-bottom:10px;
+}
+
+.header h3{
+	margin:5px 0 0px 5px;
+}
+
+.main{
+	min-height:500px;
+	min-width:1100px;
+}
+
+.interface_result{
+	padding:30px;
+}
+
+.footer{
+	margin:30px;
+	text-align:center;
+	color:#AAAAAA;
+}
+
+ul ul{
+	font-size:90%;
+	position:relative;
+	left:20px;
+}
+
+/* header a 标签样式 */
+.header_a{
+	color: #FFFFFF;
+}
+
+.header_a:hover{
+	color: #FFFFFF;
+	text-decoration:none; /* 去掉下划线 */
+}

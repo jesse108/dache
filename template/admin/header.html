@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
+<script src="/static/js/jquery-1.11.0.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<title>{$title}</title>
+</head>
+<body>
+	<div class="header">
+		<div class="row">
+			<div class="col-md-4">
+				<h3>闽南 打车系统</h3>
+			</div>
+			<div class="col-md-2 pull-right">
+				<a href="#" class="btn btn-success" target="_blank" > 这里是后台 </a>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+	
+	
+	<div class="row">
+		<div class="col-md-2">
+		{include file='admin/side_nav.html'}
+		</div>
+		
+	<div class="col-md-10">
+		<div class="admin_main">
+		{if $adminEnv['error']=Lib_Admin::GetError()}
+		<div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>Warning!</strong> {$adminEnv['error']}
+		</div>
+		{/if}
+		
+		{if $adminEnv['notice']=Lib_Admin::GetNotice()}
+		<div class="alert alert-success alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>Heads up!</strong> {$adminEnv['notice']}
+		</div>			
+		{/if}

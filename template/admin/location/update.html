@@ -1,0 +1,44 @@
+{include file="admin/header.html"}
+<div class="inside_nav">
+	<ul class="nav nav-tabs">
+	  <li><a href="/admin/location/index.php">列表</a></li>
+	  <li class="active"><a href="#">创建/修改</a></li>
+	</ul>
+</div>
+
+<div>
+	<form class="form-horizontal" action="" method="POST">
+		<input type="hidden" name="location_id" value="{$locationID}" />
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">名称</label>
+		    <div class="col-md-4">
+		    	<input name="name" type="text" class="form-control"  placeholder="北京.." value="{$location['name']}">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">英文名</label>
+		    <div class="col-md-4">
+		    	<input name="ename" type="text" class="form-control"  placeholder="Beijing.." value="{$location['ename']}">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">父ID</label>
+		    <div class="col-md-4">
+		    	<input name="parent_id" type="text" class="form-control"  placeholder="1.." value="{$parentID}">
+			</div>
+		</div>
+	
+		
+		<input type="submit" class="btn btn-info" value="提交"/>
+		{if $_GET['success']}
+		<a href="/admin/location/update.php" class="btn btn-success" />继续创建</a>
+		{/if}
+	</form>
+
+</div>
+
+
+{include file="admin/footer.html"}

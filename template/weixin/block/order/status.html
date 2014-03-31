@@ -9,6 +9,7 @@
             <li>手机号：<span>{$order['contact_mobile']}</span></li>
         </ul>
     </div>
+    <!--  
     <div class="statusDiv">
         <h3 class="title">接单情况统计</h3>
         <ul class="statusUl1 statusUl2">
@@ -18,31 +19,22 @@
             <li>接单等待时间：<span>约</span><label>5分钟</label></li>
         </ul>
     </div>
+    -->
     <div class="statusDiv">
         <h3 class="title">追踪订单状态<a href="#">刷新</a></h3>
         <ul class="statusUl3">
-            <li>
-            	<p class="time">时间：<span>2013-12-11 12:01:00</span></p>
-                <div class="sta"><label>状态：</label><p>成功提交订单，同时推送给第1家出租
-           车公司，<span>等待接单</span></p></div>
+             <li>
+            	<p class="time">时间：<span>{$orderShow['create_time']}</span></p>
+                <div class="sta"><label>状态：</label><p>成功提交订单<span>等待推送</span></p></div>
             </li>
-        	<li>
-            	<p class="time">时间：<span>2013-12-11</span><span>12:01:00</span></p>
-                <div class="sta"><label>状态：</label><p>成功提交订单，同时推送给第1家出租
-           车公司，<span>等待接单</span></p></div>
-            </li>
-            <li>
-            	<p class="time">时间：<span>2013-12-11</span><span>12:01:53</span></p>
-                <div class="sta"><label>状态：</label><p>第1家出租
-           车公司为接单，同时推送给第2家出租
-           车公司，<span>等待接单</span></p></div>
-            </li>
-            <li>
-            	<p class="time">时间：<span>2013-12-11</span><span>12:01:00</span></p>
-                <div class="sta"><label>状态：</label><p>第2家出租
-           车公司为接单，同时推送给第3家出租
-           车公司，<span>等待接单</span></p></div>
-            </li>
+               	
+        	{foreach $orderTracks as $index => $orderTrack}
+             <li>
+            	<p class="time">时间：<span>{$orderTrackInfos[$orderTrack['id']]['create_time']}</span></p>
+                <div class="sta"><label>状态：</label><p>推送给第{$index+1}家出租 车公司，<span>{$orderTrackInfos[$orderTrack['id']]['status_show']}</span></p></div>
+            </li>       	
+        	{/foreach}
+           
         </ul>
     </div>
     

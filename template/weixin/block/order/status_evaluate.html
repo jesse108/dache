@@ -1,0 +1,49 @@
+<section class="status">
+	<h3 class="stitle clearfix">接单完成
+    	<span class="icon"></span>
+        <a class="reload" href="#">刷新</a>
+    </h3>
+    <p class="os_p">您的订单已完成，很高兴为您提供服务，欢迎 下次再使用。</p>
+</section>
+<section class="geton">
+	<h3 class="title">表扬或者批判一下，我们虚心接受：</h3>
+    <div class="evaluate radius">
+    	 <form action="/weixin/order/status.php" method="get">
+    	<div class="appraise">
+        	<div class="applist">
+            	<span>服务态度</span>
+            	<ul>
+            	{for $i=1; $i<=5; $i++}
+            	    <li>
+                    	<a class="{if $i<=$serviceMark}star{else}five_stars{/if}" 
+                    		href="/weixin/order/status.php?order_id={$orderID}&service_mark={$i}&time_mark={$timeMark}"></a>
+                    </li>
+            	{/for}
+                </ul>
+            </div>
+            <div class="applist">
+            	<span>接车速度</span>
+                <ul>
+                {for $i=1; $i<=5; $i++}
+            	    <li>
+                    	<a class="{if $i<=$timeMark}star{else}five_stars{/if}" 
+                    		href="/weixin/order/status.php?order_id={$orderID}&service_mark={$serviceMark}&time_mark={$i}"></a>
+                    </li>
+            	{/for}
+                </ul>
+            </div>
+            <p>亲，谈谈整体感受，多批评批评，帮出租车公司改进服务吧。</p>
+            	<input type="hidden" name="order_id" value="{$orderID}"/>
+            	<input type="hidden" name="service_mark" value="{$serviceMark}"/>
+            	<input type="hidden" name="time_mark" value="{$timeMark}"/>
+            	<input type="hidden" name="action" value="evaluation"/>
+            	<textarea class="app_textarea" name="comment"></textarea>
+            
+            
+        </div>
+        <div class="submit">
+        	<input type="submit" value="提交评价">
+        </div>
+        </form>
+    </div>
+</section>

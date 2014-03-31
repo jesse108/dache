@@ -18,7 +18,10 @@ class Utility{
 		return $random;
 	}
 	
-	
+	public static function getRequestURI(){
+		$server = $_SERVER;
+		return $server['REQUEST_URI'];
+	}
 	
 	//////////辅助函数
 	private static function _GenRandomChar($type = self::CHAR_MIX,$index = 0){

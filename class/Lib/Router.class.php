@@ -60,4 +60,20 @@ class Lib_Router{
 		}
 		return $cities;
 	}
+	
+	/**
+	 * 获取路线地点 显示内容
+	 * 获取父级地点,  且 默认地点是 第三级   区
+	 * 
+	 */
+	public function getRouteLocationShowStr($locationID){
+		$location = Lib_Location::Fetch($locationID);
+		$parentLocation = Lib_Location::Fetch($location['parent_id']);
+		
+		$locationName = Lib_Location::getLocationShowStr($location);
+		$parentLocationName = Lib_Location::getLocationShowStr($parentLocation);
+		
+		$str ="$parentLocationName {$locationName}";
+		return $str;
+	}
 }

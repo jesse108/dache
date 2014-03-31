@@ -1,0 +1,7 @@
+<div class="sidebar text-center">
+	<ul class="nav  nav-pills nav-stacked">	
+		{foreach $adminEnv['side_bar_data'] as $sideKey => $sideData}
+			<li {if $sideData['current']} class="active" {/if}><a href="{$sideData['url']}" >{$sideData['title']}</a></li>
+		{/foreach}
+	</ul>
+</div>

@@ -1,0 +1,22 @@
+<section class="status">
+	<h3 class="stitle clearfix">接单成功，等待联系
+    	<span class="icon"></span>
+        <a class="reload" href="#">刷新</a>
+    </h3>
+    <p class="os_p">您的订单已被成功接单，等待出租车公司联系 您……</p>
+    <p class="os_p">出租车公司联系电话：<a href="#">{$companys[$acceptCompanyID]['phone']}</a></p>
+</section>
+<section class="geton">
+	<div class="oper">
+    	<a class="nooper" href="#">还未上车</a>
+        <a class="yesoper" href="/weixin/order/status.php?order_id={$orderID}&action=go_on">我已上车</a>
+    </div>
+    <div class="evaluate">
+    <i class="left"></i>
+    	<p class="sp_tit">您可以：  </p>
+    <p class="spcz">
+    	<a href="#">投诉出租车公司</a>
+        <a href="#">拨打出租车公司电话</a>
+    </p>
+    </div>
+</section>

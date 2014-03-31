@@ -102,7 +102,7 @@ class DB{
 		}
 		$select = isset ( $options [ 'select'] ) ? $options ['select'] : '*';
 		$order = isset ( $options [ 'order'] ) ? $options ['order'] : null;
-		$groupby = isset ( $options [ 'group'] ) ? $options ['group'] : null;
+		$groupby = isset ( $options ['group'] ) ? $options ['group'] : null;
 		 
 	
 		$condition = self:: BuildCondition( $condition );
@@ -126,6 +126,31 @@ class DB{
 		return self::Query($sql,$dbType);
 	}
 	
+	public static function Delete($table,$condition,$dbType = null){
+		$dbType = $dbType ? $dbType : self::DB_TYPE_RW;
+		$condition = self::BuildCondition($condition,'AND',$dbType);
+		
+		$sql = "DELETE FROM `{$table}` ";
+		if($condition){
+			$sql .= " WHERE {$condition}";
+		}
+		return self::Query($sql,$dbType);
+	}
+	
+	public static function Exists($table,$condition,$column = 'id',$dbType = null){
+		$condition = self::BuildCondition($condition,'AND',$dbType);
+		$sql = "SELECT {$column} from `{$table}` ";
+		if($condition){
+			$sql .= " WHERE {$condition}";
+		}
+		$sql .= ' limit 1 ';
+		$result = self::GetQueryResult($sql,$dbType);
+		if($result){
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	static public function BuildCondition ($condition = array(), $logic = 'AND',$dbType = null) {
 		$logic = $logic ? $logic : 'AND';
@@ -303,15 +328,15 @@ class DBObject{
 	function query($sql){
 		$this->count++;
 		if($this->debug){
-			Util_Time::TimerStart($sql);
+			Util_Time::timerStart($sql);
 		}
 		$result = @mysql_query($sql,$this->_connection);
 		if($this->debug){
-			$duration = Util_Time::TimerStop($sql);
+			$duration = Util_Time::timerStop($sql);
 			$rowNum = mysql_affected_rows($this->_connection);
 			$count = $this->count;
 			echo "
-			[{$count}][ROW:{$rowNum}][time:{$duration}]{$sql} <br>\n		
+			<pre>[{$count}][ROW:{$rowNum}][time:{$duration}]{$sql} </pre>
 			";
 		}
 		if($result){

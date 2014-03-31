@@ -1,0 +1,21 @@
+{include file="admin/header.html"}
+<div class="inside_nav">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a href="#">列表</a></li>
+	  <li><a href="/admin/location/update.php">创建/修改</a></li>
+	</ul>
+</div>
+
+<div>
+	<h2 class="text-center"><small>地区列表</small></h2>
+	<div class=" navbar btn-group navbar-header">
+		{foreach $levelArray as $one}
+		<a href="/admin/location/index.php?level={$one['value']}" class="btn btn-default {if $level==$one['value']} active {/if}">{$one['name']}</a>
+		{/foreach}
+	</div>
+	
+	{$tableHtml}
+</div>
+
+
+{include file="admin/footer.html"}

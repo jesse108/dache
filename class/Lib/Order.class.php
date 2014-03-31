@@ -76,6 +76,21 @@ class Lib_Order{
 	}
 	
 	/**
+	 * 上车
+	 * @param array $order
+	 */
+	public function getOnBus($order){
+		if($order['status'] !=  DB_Order::STATUS_ACCEPT){
+			return false;
+		}
+		$updateRow = array(
+			'status' => DB_Order::STATUS_ACCEPT_ON,
+		);
+		$this->dbOrder->update(array('id' => $order['id']), $updateRow);
+		return true;
+	}
+	
+	/**
 	 * 获取订单信息
 	 * 
 	 * @param int $orderID
@@ -207,6 +222,32 @@ class Lib_Order{
 		return $orderShow;
 	}
 
+	
+	public static function getReadableOrderTrack($orderTrack){
+		$createTime = date('Y-m-d H:i:s',$orderTrack['create_time']);
+		$finishTime = date('Y-m-d H:i:s',$orderTrack['finish_time']);
+		
+		switch ($orderTrack['status']){
+			case DB_OrderTrack::STATTUS_CALLING:
+				$statusShow = '等待接单,呼叫中..';
+				break;
+			case DB_OrderTrack::STATUS_REFUSE:
+				$statusShow = '未接受';
+				break;
+			case DB_OrderTrack::STATTUS_ACCEPT:
+				$statusShow = '已接单';
+				break;
+			default:
+				$statusShow = '未知状态';
+				break;
+		}
+		$orderTrackInfo = array(
+			'create_time' => $createTime,
+			'finish_time' => $finishTime,
+			'status_show' => $statusShow,
+		);
+		return $orderTrackInfo;
+	}
 	
 	
 }

@@ -1,0 +1,37 @@
+<section class="status">
+	<h3 class="stitle clearfix">接单完成
+    	<span class="icon"></span>
+        <a class="reload" href="#">刷新</a>
+    </h3>
+    <p class="os_p">您的订单已完成，很高兴为您提供服务，欢迎 下次再使用。</p>
+</section>
+
+<section class="status">
+	<h3 class="stitle clearfix">您的评价已提交，谢谢你的反馈。
+    	<span class="icon"></span>
+    </h3>
+    <p class="os_p">我们将把您的评价反馈给出租车公司，以 帮助提高服务。</p>
+</section>
+
+<section class="achieve">
+    <div class="applist">
+        <span>服务态度</span>
+        <ul>
+        	{for $i=1; $i<=$evaluation['service_mark'];$i++}
+        	<li><span></span></li>
+        	{/for}
+        </ul>
+    </div>
+    <div class="applist">
+        <span>接车速度</span>
+        <ul>
+         	{for $i=1; $i<=$evaluation['time_mark'];$i++}
+        	<li><span></span></li>
+        	{/for}
+        </ul>
+    </div>
+     <div class="applist">
+        <span>您的评价：</span>
+     </div>
+    <p>{$evaluation['comment']}</p>
+</section>

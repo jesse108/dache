@@ -1,0 +1,39 @@
+{include file="admin/header.html"}
+<div class="inside_nav">
+	<ul class="nav nav-tabs">
+	  <li><a href="/admin/route/index.php?company_id={$companyID}">路线列表</a></li>
+	  <li class="active"><a href="#">创建/修改</a></li>
+	</ul>
+</div>
+
+<div>
+	<h2>{$company['name']} 路线修改</h2>
+	<form class="form-horizontal" action="" method="POST">
+		<input type="hidden" name="company_id" value="{$companyID}" />
+		<input type="hidden" name="route_id" value="{$routeID}" />
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">起始地ID</label>
+		    <div class="col-md-4">
+		    	<input name="departure" type="text" class="form-control"  placeholder="开始路线ID.." value="{$companyRoute['departure']}">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label">目的地ID</label>
+		    <div class="col-md-4">
+		    	<input name="destination" type="text" class="form-control"  placeholder="目的地ID..." value="{$companyRoute['destination']}">
+			</div>
+		</div>
+	
+		
+		<input type="submit" class="btn btn-info" value="提交"/>
+		{if $_GET['success']}
+		<a href="/admin/route/update.php?company_id={$companyID}" class="btn btn-success" />继续创建</a>
+		{/if}
+	</form>
+
+</div>
+
+
+{include file="admin/footer.html"}

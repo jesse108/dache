@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `user_id` bigint(20) NOT NULL,
   `departure` bigint(20) NOT NULL COMMENT '出发ID',
   `destination` bigint(20) NOT NULL COMMENT '目的地ID',
+  `company_id` bigint(20) not null default 0,
   `status` tinyint(2) NOT NULL DEFAULT '0',
   `time` int(10) NOT NULL COMMENT '出发时间',
   `num` int(5) NOT NULL COMMENT '人数',
@@ -104,6 +105,20 @@ CREATE TABLE IF NOT EXISTS `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS `order_evaluation` (
+  `order_id` bigint(20) primary key not null,
+  `service_mark` tinyint(2) not null default 0,
+  `time_mark` tinyint(2) not null default 0,
+  `company_id` bigint(20) not null default 0,
+  `departure` bigint(20) not null default 0,
+  `destination` bigint(20) not null default 0,
+  `comment` varchar(500),
+  key(`company_id`),
+  key(`departure`,`destination`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单评价' AUTO_INCREMENT=1 ;
+
 
 --
 -- 表的结构 `order_track`

@@ -53,7 +53,7 @@ class Lib_Order_Business{
 			'order_id' => $order['id'],
 			'company_id' => $companyID,
 			'call_id' => $callID,
-			'call_time ' => time(),
+			'call_time' => time(),
 			'status' => DB_OrderTrack::STATTUS_CALLING,
 		);
 		$trackID = $this->dbOrderTrack->create($orderTrack);
@@ -94,6 +94,7 @@ class Lib_Order_Business{
 		$orderUpdate = array(
 			'status' => DB_Order::STATUS_ACCEPT,
 			'call_status' => DB_Order::CALL_STATUS_NO_CALL,
+			'company_id' =>  $orderTrack['company_id'],
 		);
 		$this->dbOrder->update(array('id' => $order['id']), $orderUpdate);
 		
