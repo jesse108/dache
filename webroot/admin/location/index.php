@@ -11,7 +11,8 @@ $levelArray = array(
 	0 => array('value' => 0, 'name' => '全部'),
 	Lib_Location::LEVEL_PROVINCE => array('value' => Lib_Location::LEVEL_PROVINCE , 'name' => '省'),
 	Lib_Location::LEVEL_CITY => array('value' => Lib_Location::LEVEL_CITY , 'name' => '市'),
-	Lib_Location::LEVEL_DISTRICT => array('value' => Lib_Location::LEVEL_DISTRICT , 'name' => '区'),
+	Lib_Location::LEVEL_DISTRICT => array('value' => Lib_Location::LEVEL_DISTRICT , 'name' => '区/县'),
+	Lib_Location::LEVEL_TOWN => array('value' => Lib_Location::LEVEL_TOWN , 'name' => '镇'),
 );
 
 /////////省市筛选
@@ -33,8 +34,11 @@ foreach ($showLocation as &$one){
 	$one['level_name'] = $levelName;
 	$one['parent_name'] = $parent ? $parent['name'] : '';
 	
-	$one['operate'] = "<a href='/admin/location/update.php?loaction_id={$one['id']}' target='_blank'>修改</a> 
-			<a href='/admin/location/update.php?parent_id={$one['id']}' target='_blank'>创建子地区</a>";
+	$one['operate'] = "<a href='/admin/location/update.php?loaction_id={$one['id']}' target='_blank'>修改</a> ";
+	if($one['level'] < Lib_Location::LEVEL_LAST){
+		$one['operate'] .= "<a href='/admin/location/update.php?parent_id={$one['id']}' target='_blank'>创建子地区</a>";
+	}		
+			
 }
 
 

@@ -4,15 +4,21 @@ class Lib_Location{
 	const LEVEL_PROVINCE = 1;  //省
 	const LEVEL_CITY = 2;// 市
 	const LEVEL_DISTRICT = 3; //区
+	const LEVEL_TOWN = 4; // 镇
+	const LEVEL_LAST = 4;
+	
 	public static $error;
 	
 	private static $allLoaction = array();
 	
 	
-	public static function Create($loaction){
+	public static function Create($location){
+		if(!self::checkUpdate($location)){
+			return false;
+		}
 		$condition = array(
-			'name' => $loaction['name'],
-			'parent_id' => $loaction['parent_id'],
+			'name' => $location['name'],
+			'parent_id' => $location['parent_id'],
 		);
 		if(DB::Exists('locatioin', $condition)){
 			self::$error = "已经存在此地区请重新填写";
@@ -20,7 +26,7 @@ class Lib_Location{
 		}
 		
 		$dbLocation = new DB_Location();
-		$locationID = $dbLocation->create($condition);
+		$locationID = $dbLocation->create($location);
 		if(!$locationID){
 			self::$error = $dbLocation->error;
 		}
@@ -28,6 +34,10 @@ class Lib_Location{
 	}
 	
 	public static function Update($oldLocation,$updateRow){
+		if(!self::checkUpdate($updateRow)){
+			return false;
+		}
+		
 		$condition = array(
 			'id' => $oldLocation['id'],
 		);
@@ -84,5 +94,27 @@ class Lib_Location{
 			$name = '市';
 		}
 		return $name;
+	}
+	
+	public static function checkUpdate($location){
+		if(!$location['name']){
+			self::$error = "地名不能为空";
+			return false;
+		}
+		
+		$condition = array(
+			'name' => $location['name'],
+			'level' => $location['level'],
+			'parent_id' => $location['parent_id'],
+		);
+		if($location['id']){
+			$condition = " id <> {$location['id']}";
+		}
+		$dbLocation = new DB_Location();
+		if($dbLocation->exsits($condition)){
+			self::$error = "此地点已经建立请不要重复创建";
+			return false;
+		}
+		return true;
 	}
 }

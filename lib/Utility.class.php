@@ -1,5 +1,9 @@
 <?php
 class Utility{
+	public static $numberMap = array(
+		0 => '零',1 => '幺',2=>'二',3=>'三',4=>'四',5=> '五',6=>'六',7=>'七' ,8=> '八',9=>'九',
+	);
+	
     const CHAR_MIX = 0;
     const CHAR_NUM = 1;
     const CHAR_WORD = 2;
@@ -96,5 +100,22 @@ class Utility{
 		if (!$u) $u = '/';
 		Header("Location: {$u}");
 		exit;
+	}
+	
+	/**
+	 * 阿拉伯数字转化成中文数字
+	 */
+	public static function TransNumberToCN($number){
+		$number = strval($number);
+		
+		$temp = '';
+		for($i = 0 ; $i< strlen($number); $i ++){
+			$curNumStr = self::$numberMap[$number[$i]];
+			if($curNumStr){
+				$temp .= $curNumStr;
+			}
+		}
+		
+		return $temp;
 	}
 }

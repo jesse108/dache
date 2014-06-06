@@ -175,14 +175,20 @@ class Lib_Order{
 	 * 获取可读的订单信息
 	 * @param array $order
 	 */
-	public static function  GetReadableOrder($order){
+	public static function  GetReadableOrder($order,$fullPlaceName = true){
 		$locationDeparture = Lib_Location::Fetch($order['departure']);
-		$cityDeparture = Lib_Location::Fetch($locationDeparture['parent_id']);
-		$showDeparture = "{$cityDeparture['name']}市{$locationDeparture['name']}";
+		$parentDeparture = Lib_Location::Fetch($locationDeparture['parent_id']);
+		$showDeparture = "{$locationDeparture['name']}";
 		
 		$locationDestination = Lib_Location::Fetch($order['destination']);
-		$cityDestination = Lib_Location::Fetch($locationDestination['parent_id']);
-		$showDestination = "{$cityDestination['name']}市{$locationDestination['name']}";
+		$parentDestination = Lib_Location::Fetch($locationDestination['parent_id']);
+		$showDestination = "{$locationDestination['name']}";
+		
+		
+		if($fullPlaceName){
+			$showDeparture = "{$parentDeparture['name']}".Lib_Location::getLevelShowStr($parentDeparture['level'])."{$showDeparture}";
+			$showDestination = "{$parentDestination['name']}".Lib_Location::getLevelShowStr($parentDestination['level']). " {$showDestination}";
+		}
 		
 		$showTime = Util_Time::getManReadTime($order['time']);
 		
@@ -190,7 +196,7 @@ class Lib_Order{
 		$showStatus = DB_Order::$staticArray[$status]['title'];
 		
 		switch ($status){
-			case DB_Order::STATUS_ACCEPT:
+			
 			case DB_Order::STATUS_ACCEPT_ON;
 				$process = 1;
 				$processShow = "已完成";
@@ -201,9 +207,10 @@ class Lib_Order{
 				break;
 			case DB_Order::STATUS_REFUSE;
 				$process = 2;
-				$processShow = "无人接收";
+				$processShow = "订单失败";
 				break;
 			case DB_Order::STATUS_NORMAL:
+			case DB_Order::STATUS_ACCEPT:
 			default:
 				$process = 0;
 				$processShow = '进行中';

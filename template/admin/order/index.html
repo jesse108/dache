@@ -1,0 +1,66 @@
+{include file="admin/header.html"}
+<div>
+	<form class="form"  method="get" action="" >
+		  <input type="hidden" name="action" value="query"/>
+		  <div class="row">
+			<div class="col-md-3">
+				<div class="col-md-6">出租车公司ID:</div>
+		    	<div class="col-md-6">
+		      		<input type="text" name="company_id"  value="{$companyID}" class="form-control"  placeholder="ID">
+		    	</div>
+			</div>
+			
+			<div class="col-md-3">
+				<div class="col-md-6">出发地ID:</div>
+		    	<div class="col-md-6">
+		      		<input name="start_id" value="{$startID}" type="text" class="form-control"  placeholder="ID">
+		    	</div>
+			</div>
+			
+			<div class="col-md-3">
+				<div class="col-md-6">目的地ID:</div>
+		    	<div class="col-md-6">
+		      		<input type="text" name="end_id" value="{$endID}" class="form-control"  placeholder="ID">
+		    	</div>
+			</div>
+		  </div>
+		  
+		  <br />
+		  
+		  <div class= "row">
+		  	<div class = "col-md-3">
+		  		<div class="col-md-6">下单开始时间</div>
+		  		<div class="col-md-6">
+		      		<input type="text" value="{$order_start_date}" value="{$orderStartDate}" class="form-control"  placeholder="xxxx-xx-xx">
+		    	</div>
+		  	</div>
+		  	
+		  	<div class = "col-md-3">
+		  		<div class="col-md-6">下单结束时间</div>
+		  		<div class="col-md-6">
+		      		<input type="text" name="order_end_date" value="{$orderEndDate}" class="form-control"  placeholder="xxxx-xx-xx">
+		    	</div>
+		  	</div>
+		  	
+		  	<div class = "col-md-3">
+		  		<div class="col-md-5">订单状态</div>
+		  		<div class="col-md-7">
+		      		<select class="form-control" name="status">
+		      			<option value="-1">全部</option>
+		      			{foreach $orderStatus as $index => $value}
+		      			<option value="{$index}" {if $status==$index}selected{/if}>{$value['title']}</option>	
+		      			{/foreach}
+		      		</select>
+		    	</div>
+		  	</div>
+		  
+		  </div>
+		  
+		  <button type="submit" class="btn btn-success">提交</button>
+	</form>
+	<br />
+	{$html}
+	{$pageStr}
+</div>
+
+{include file="admin/footer.html"}

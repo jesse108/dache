@@ -122,7 +122,6 @@ class Lib_Order_Business{
 		}
 		
 		$order = $this->dbOrder->fetch($orderTrack['order_id']);
-		
 		///////更新呼叫记录状态
 		$trackUpdate = array(
 				'status' => DB_OrderTrack::STATUS_REFUSE,

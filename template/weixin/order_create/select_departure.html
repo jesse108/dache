@@ -4,22 +4,22 @@
     <a class="return" href="javascript:history.go(-1);"></a>
 </header>
 <section class="city">
+{if $pastRoutes}
 	<div class="citylist">
     	<h3>以前打过车的线路:</h3>
         <div class="cong">
-        {if $pastRoutes}
         	{foreach $pastRoutes as $route}
         		<a href="/weixin/index.php?departure={$route['departure']}&destination={$route['destination']}">从 {$route['departure_name']} 到 {$route['destination_name']}</a>
         	{/foreach}
-        {/if}
         </div>
     </div>
+{/if}
     <div  class="citylist">
     	{foreach $departures as $city}
     		<h3>【{$city['name']}】</h3>
     		<ul>
     		{foreach $city['sub_locations'] as $location}
-    			<li><a href="/weixin/index.php?departure={$location['id']}">{$location['name']}</a></li>
+    			<li><a href="/weixin/index.php?departure={$location['id']}&destination=0">{$location['name']}</a></li>
     		{/foreach}
     		</ul>
     	{/foreach}

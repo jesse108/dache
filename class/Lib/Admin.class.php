@@ -38,8 +38,13 @@ class Lib_Admin {
 			'company' => array (
 				'title' => '公司管理',
 				'url' => '/admin/company/index.php',
-				'key' => '/admin\/compnay/' 
-			) 
+				'key' => '/admin\/company/' 
+			),
+			'order' => array(
+				'title' => '订单管理',
+				'url' => '/admin/order/index.php',
+				'key' => '/admin\/order/',
+			),
 		);
 		foreach ($sideBar as &$data){
 			$key = $data['key'];

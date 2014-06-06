@@ -63,7 +63,7 @@ class Lib_Router{
 	
 	/**
 	 * 获取路线地点 显示内容
-	 * 获取父级地点,  且 默认地点是 第三级   区
+	 * 获取父级地点,  且 默认地点 回找二级
 	 * 
 	 */
 	public function getRouteLocationShowStr($locationID){

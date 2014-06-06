@@ -26,29 +26,10 @@ class Lib_OrderTemp{
 	public function setOrder($orderInfo){
 		$order = $this->getOrder();
 		
-		if($orderInfo['user_id']){
-			$order['user_id'] = $orderInfo['user_id'];
+		foreach ($orderInfo as $index => $value){
+			$order[$index] = $orderInfo[$index];	
 		}
 		
-		if($orderInfo['departure']){
-			$order['departure'] = $orderInfo['departure'];
-		}
-		
-		if($orderInfo['destination']){
-			$order['destination'] = $orderInfo['destination'];
-		}
-		
-		if($orderInfo['time']){
-			$order['time'] = $orderInfo['time'];
-		}
-		
-		if($orderInfo['num']){
-			$order['num'] = $orderInfo['num'];
-		}
-		
-		if($orderInfo['contact_mobile']){
-			$order['contact_mobile'] = $orderInfo['contact_mobile'];
-		}
 		Session::Set(self::getOrderKey(), $order);
 		return true;
 	}
@@ -96,12 +77,12 @@ class Lib_OrderTemp{
 	
 	public static function CheckOrder($order){
 		if(!$order['departure']){
-			self::$error = "出发地不能为空";
+			self::$error = "请选择出发地，不然我们不知道您从哪里出发";
 			return false;
 		}
 		
 		if(!$order['destination']){
-			self::$error  = "目的地不能为空";
+			self::$error  = "请选择目的地，不然我们不知道您要去哪里";
 			return false;
 		}
 		
@@ -111,13 +92,17 @@ class Lib_OrderTemp{
 		}
 		
 		if(!$order['time']){
-			self::$error = "请选择出发时间";
+			self::$error = "请选择出发时间,不然我们不知道你什么时候出发";
 			return false;
 		}
 		
 		if(!$order['contact_mobile']){
-			self::$error = "手机号不能为空 ";
+			self::$error = "需要填写手机号，我们才能联系上您";
 			return false;
+		}
+		
+		if(!Util_Validator::validate($order['contact_mobile'], Util_Validator::TYPE_MOBILE)){
+			self::$error = "需要填写正确的手机号，我们才能联系上您";
 		}
 		return true;
 	}

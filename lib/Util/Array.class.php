@@ -26,9 +26,10 @@ class Util_Array{
 			}
 			
 			if(isset($curValue) && $curValue !== ''){
-				$colArray[] = $curValue;
+				$colArray[$curValue] = $curValue;
 			}
 		}
+		$colArray = array_values($colArray);
 		return $colArray;
 	}
 	

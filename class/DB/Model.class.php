@@ -39,6 +39,12 @@ class DB_Model{
 		return $result;
 	}
 	
+	public function count($condition,$sum =null){
+		$count  = DB::Count($this->tableName, $condition);
+		$count = intval($count);
+		return $count;
+	}
+	
 	
 	public function fetch($id,$key = null){
 		if(!$id){
@@ -63,5 +69,9 @@ class DB_Model{
 			$this->error = DB::$error;
 		}
 		return $result;
+	}
+	
+	public function exsits($condition,$column = 'id'){
+		return DB::Exists($this->tableName, $condition,$column,$this->readDB);
 	}
 }

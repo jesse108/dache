@@ -31,6 +31,9 @@ if($_POST){
 		'level' => $parentLocation['level'] + 1,
 		'parent_id' => $parentID,
 	);
+	if($oldLoaction){
+		$location['id'] = $oldLoaction['id'];
+	}
 	
 	if($oldLoaction){
 		$result  = Lib_Location::Update($oldLoaction, $location);

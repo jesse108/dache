@@ -1,21 +1,19 @@
 <section class="status">
-	<h3 class="stitle clearfix">订单没有被接受
+	<h3 class="stitle clearfix">订单失败
     	<span class="icon icon_undone"></span>
-        <a class="reload" href="#">刷新</a>
+        <a class="reload" href="javascript:window.location.reload();">刷新</a>
     </h3>
-    <p class="os_p">{$countTracks}家出租车公司都未接受您的订单。对不起，我们已经尽力了。</p>
+    <p class="os_p">没有公司接受您的订单。<br >对不起，我们已经尽力了。</p>
 	<p class="tit_p">可能由于以下原因该订单未被接受：</p>
-    <p class="osp_p"><span>.</span>您的出行时间段内，线路出行人数较少，无法成单</p>
-    <p class="osp_p"><span>.</span>出租车公司无人响应</p>
-    <p class="osp_p"><span>.</span>系统服务器出现故障</p>
+    <p class="osp_p"><span>.</span>该线路出行人数较少，无法成单</p>
+    <p class="osp_p"><span>.</span>出租车公司无人响应</p> 
 </section>
 <section class="sphone">
 	<p class="sp_tit">您可以：  </p>
     <p class="spcz">
     	<a href="/weixin/index.php?departure={$order['departure']}&destination={$order['destination']}">1.再打一次车</a>
-    	<a href="/weixin/order/list.php">2.查看打车记录</a>
     </p>
-    <p class="sp_tit">3.拨打该线路所有{$countTracks}家出租车公司联系电话：</p>
+    <p class="sp_tit">2.拨打该线路所有{$countTracks}家出租车公司联系电话：</p>
     <p class="q_phone">
     	{foreach $companys as $company}
     		<a href="#">{$company['phone']}</a>

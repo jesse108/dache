@@ -4,7 +4,7 @@ include_once dirname(dirname(__FILE__)).'/app.php';
 $order = DB::LimitQuery('order');
 
 $cloopenObj = new Lib_Cloopen();
-$to = '15210954985';
+$to = '15033539677';
 $verifyCode = "1a2s3d";
 $displayNum = "041186650320";
 $result = $cloopenObj->ivrDial($to);

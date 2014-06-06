@@ -3,6 +3,10 @@ class Lib_Cloopen_IVRHandler{
 	const DIRECTION_CALL_IN = 0;//呼入
 	const DIRECTION_CALL_OUT = 1; //呼出
 	
+	const STATUS_1_ACCEPT = 1; //接单
+	const STATUS_1_REPEAT = 2; //重听
+	const STATUS_1_MORE = 3;//了解更多
+	
 	
 	public static function HandleRequest(){
 		$data = $_REQUEST;
@@ -61,7 +65,11 @@ class Lib_Cloopen_IVRHandler{
 		
 		$orderRouteText = self::getOrderRouteText($order);
 		
-		$text = "您好,这里是打车系统,下面有一叫车信息, {$orderRouteText},接受请按 1,  拒绝请按2, 重听请按3";
+		$statusAccept = self::STATUS_1_ACCEPT;
+		$statusRepeat = self::STATUS_1_REPEAT;
+		$statusMore = self::STATUS_1_MORE;
+		
+		$text = "您好,{$orderRouteText},接单请按 {$statusAccept},再听一遍请按{$statusRepeat}, 了解更多请按{$statusMore},拒单请挂机.";
 		
 		$result = "<Get action='status1' numdigits='1'><PlayTTS>{$text}</PlayTTS></Get>";
 		return $result;
@@ -85,8 +93,9 @@ class Lib_Cloopen_IVRHandler{
 		}
 		
 		if($orderTrack['status'] == DB_OrderTrack::STATTUS_CALLING){
+			DB::Debug();
 			$libOrderBusiness = new Lib_Order_Business();
-			$libOrderBusiness->refuse(orderTrack);
+			$libOrderBusiness->refuse($orderTrack);
 		}
 		return;
 	}
@@ -119,13 +128,16 @@ class Lib_Cloopen_IVRHandler{
 				$text = $text . ",重听请按1";
 				$result = "<Get action='status2' numdigits='1' timeout='20'><PlayTTS>{$text}</PlayTTS></Get>";
 				break;
-			case 2: //拒绝订单
-				$result = "<PlayTTS>已拒绝,再见!</PlayTTS>";
-				break;
-			case 3: //重复订单
+			case 2: //重复订单
+				$statusAccept = self::STATUS_1_ACCEPT;
+				$statusRepeat = self::STATUS_1_REPEAT;
+				$statusMore = self::STATUS_1_MORE;
 				$text = self::getOrderRouteText($order);
-				$text = "{$text},接受请按 1,  拒绝请按2, 重听请按3";
+				$text = "{$text},接单请按 {$statusAccept},再听一遍请按{$statusRepeat}, 了解更多请按{$statusMore},拒单请挂机.";
 				$result = "<Get action='status1' numdigits='1' timeout='20'><PlayTTS>{$text}</PlayTTS></Get>";
+				break;
+			case 3: //更多
+				$result = "<PlayTTS>请联系该打车平台开发者，手机号为133 6699 0959</PlayTTS>";
 				break;
 			default: //等待
 				$result = "<Get action='status1' numdigits='1' timeout='10'></Get>";
@@ -134,7 +146,7 @@ class Lib_Cloopen_IVRHandler{
 		return $result;
 	}
 	
-	public static function Status2($data){ //状态1 处理
+	public static function Status2($data){ //状态2 处理
 		$callID = $data['callid'];
 		$digits = $data['digits'];
 	
@@ -168,16 +180,16 @@ class Lib_Cloopen_IVRHandler{
 	
 	public static function getOrderRouteText($order){
 		$libOrder = new Lib_Order();
-		$orderInfo = $libOrder->GetReadableOrder($order);
-		$time = date('m月d日 H点i分',$order['time']);
-		$text = "出发时间:{$time},出发地:{$orderInfo['departure']},目的地:{$orderInfo['destination']},人数:{$order['num']}人";
+		$orderInfo = $libOrder->GetReadableOrder($order,true);
+		$time = Util_Time::getManReadTime($order['time']);
+		$text = "{$order['num']}位乘客, 从{$orderInfo['departure']}到{$orderInfo['destination']},{$time}出发 ";
 		return $text;
 	}
 	
 	public static function getOrderConnectText($order){
 		$mobile = $order['contact_mobile'];
 		$mobile = self::MakeHearableMobile($mobile);
-		$text = "请记住对方电话,电话是:{$mobile}. 重复一次,电话是{$mobile},";
+		$text = "乘客手机号: {$mobile},重复一次,{$mobile},请您尽快联系乘客";
 		return $text;
 	}
 	
@@ -197,10 +209,10 @@ ETO;
 	
 	public static function MakeHearableMobile($mobile){
 		if(strlen($mobile) == 11){
-			$mobile1 = substr($mobile, 0,3);
-			$mobile2 = substr($mobile, 3,4);
-			$mobile3 = substr($mobile, 7,4);
-			$mobile = "$mobile1-$mobile2-$mobile3";
+			$mobile1 = Utility::TransNumberToCN(substr($mobile, 0,3));
+			$mobile2 = Utility::TransNumberToCN(substr($mobile, 3,4));
+			$mobile3 = Utility::TransNumberToCN(substr($mobile, 7,4));
+			$mobile = "$mobile1,$mobile2,$mobile3";
 		}
 		return $mobile;
 	}
