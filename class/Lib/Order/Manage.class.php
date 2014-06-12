@@ -35,11 +35,14 @@ class Lib_Order_Manage{
 			$phone = $company['phone'];
 			$cloopenObj = new Lib_Cloopen();
 			$callResult = $cloopenObj->ivrDial($phone); //发起呼叫
-			if(Util_Array::IsArrayValue($callResult) && $callResult['callSid']){
-				$callID = $callResult['callSid'];
-				$trackID = $libOrderBusiness->call($order, $companyID,$callID);
-				return $callID;
-			}
+			$callID = $callResult['callSid'] ? $callResult['callSid'] : '';
+			
+			//无论呼叫是否成功都要记录行为  todo 是否要设置重试次数?
+			$trackID = $libOrderBusiness->call($order, $companyID,$callID);
+			return $callID;
+		} else {
+			//无可用公司 拒绝掉订单
+			$libOrderBusiness->refeseOrder($order['id']);
 		}
 		return false;
 	}
@@ -63,4 +66,5 @@ class Lib_Order_Manage{
 			}
 		}
 	}
+	
 }

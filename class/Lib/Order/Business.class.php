@@ -139,7 +139,7 @@ class Lib_Order_Business{
 				'call_status' => DB_Order::CALL_STATUS_NO_CALL
 		);
 		if($countTrack >= count($availableCompanyIDs) || $countTrack >= self::MAX_CALL_NUM){
-			$orderUpdate['status'] = DB_OrderTrack::STATUS_REFUSE;
+			$this->refeseOrder($order['id']);
 		}
 		$this->dbOrder->update(array('id'=>$order['id']), $orderUpdate);
 
@@ -149,6 +149,13 @@ class Lib_Order_Business{
 		);
 		$this->dbCompany->update(array('id' =>$orderTrack['company_id']), $companyUpdate);
 		
+		return true;
+	}
+	
+	public function refeseOrder($orderID){
+		$orderUpdate = array();
+		$orderUpdate['status'] = DB_OrderTrack::STATUS_REFUSE;
+		$this->dbOrder->update(array('id'=>$orderID), $orderUpdate);
 		return true;
 	}
 	
