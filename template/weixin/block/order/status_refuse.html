@@ -8,7 +8,7 @@
     <p class="osp_p"><span>.</span>该线路出行人数较少，无法成单</p>
     <p class="osp_p"><span>.</span>出租车公司无人响应</p> 
 </section>
-<section class="sphone">
+<section class="sphone" style="display:none;">
 	<p class="sp_tit">您可以：  </p>
     <p class="spcz">
     	<a href="/weixin/index.php?departure={$order['departure']}&destination={$order['destination']}">1.再打一次车</a>
@@ -19,4 +19,10 @@
     		<a href="#">{$company['phone']}</a>
     	{/foreach}
     </p>
+</section>
+<section class="geton">
+    <div class="oper">
+        <a class="nooper" href="tel:15033539677">拨打人工客服</a>
+        <a class="yesoper" href="/weixin/index.php?departure={$order['departure']}&destination={$order['destination']}">/weixin/index.php?departure={$order['departure']}&destination={$order['destination']}再叫一次车</a>
+    </div>
 </section>
