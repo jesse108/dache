@@ -43,9 +43,9 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .slist li label i.num{ background-position:5px -140px;}
 .slist li label i.phone{background-position:-23px -291px}
 
-.slist li a{  height:22px; float:none; display: block; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#dfdfdf; font-size:16px; background-color:#fff;}
+.slist li a{  height:22px; float:none; display: block; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#b2b2b2; font-size:16px; background-color:#fff;}
 .slist li a i{ display:block; position:absolute; top:6px; right:0; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
-.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right; color:#666; font-size:16px; }
+.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right;  color:#b2b2b2;font-size:16px; }
 .slist li:hover .fRight{background-color:#eaf5fe;}
 .slist li .fRight.col{color:#508eff;}
 /*about is   list*/

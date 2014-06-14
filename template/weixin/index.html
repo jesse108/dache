@@ -28,6 +28,7 @@
 	        {else}
 	        	请选择出发地
 	        {/if}
+	        <i></i>
 	        </a>
 	        
 	    </li>
@@ -69,7 +70,7 @@
 	    	<input class="fRight" type="text" name="contact_mobile" value="{$order['contact_mobile']}"  placeholder="请填写手机号"/>
 	    </li>
 	</ul>
-
+<!--赵剑：出发地、目的地、时间人数、联系人电话，在选择或者赋值后给多添加一个class名“col”，例如：class="fRight col"；手机号默认用value="请填写手机号"取代placeholder="请填写手机号"，避免安卓手机出现问题-->
 	<div class="inputbtu">
 		<input class="btu" type="submit" value="立即打车"/>
 	</div>
