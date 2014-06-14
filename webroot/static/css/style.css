@@ -34,7 +34,7 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 /*列表通用样式*/
 /*slist is for index list*/
 .slist{margin:0px 10px 10px; border:1px solid #e0e0e0; border-radius:4px; background-color:#fff;}
-.slist li{ list-style:none; border-bottom:1px solid #e0e0e0; overflow:hidden;padding:10px; position:relative; }
+.slist li{ list-style:none; border-bottom:1px solid #e0e0e0;padding:10px; position:relative; }
 .slist li:hover{ background-color:#eaf5fe;}
 .slist li:last-child {border:none;}
 .slist li label{  width:auto; height:22px; line-height:22px; overflow:hidden; position:absolute;top:10px; left:10px;z-index:33; padding-left:30px; color:#333333; font-size:16px;}
@@ -43,11 +43,16 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .slist li label i.num{ background-position:5px -140px;}
 .slist li label i.phone{background-position:-23px -291px}
 
-.slist li a{  height:22px; float:none; display: block; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#b2b2b2; font-size:16px; background-color:#fff;}
-.slist li a i{ display:block; position:absolute; top:6px; right:0; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
-.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right;  color:#b2b2b2;font-size:16px; }
+.slist li a{  height:22px; float:none; display: block; line-height:22px; overflow:hidden; padding-right:20px; color:#b2b2b2; font-size:16px; background-color:#fff;}
+.slist li i.three{ display:block; position:absolute; top:15px; right:12px; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
+.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right;outline:none;  color:#b2b2b2;font-size:16px; }
 .slist li:hover .fRight{background-color:#eaf5fe;}
+.fRight_phone{width:110px;outline:none;}
 .slist li .fRight.col{color:#508eff;}
+.slist li input.fRight{height:22px;  display: block;outline:none; text-align:right;line-height:22px; overflow:hidden; padding-right:20px; color:#b2b2b2; font-size:16px; background-color:#fff;}
+.layer_in{width:auto; display:block;margin:0 auto; background-color:#fff; position:absolute; top:42px;right:0px; padding:2px 0; overflow:hidden; border-radius:3px; border:1px solid #e0e0e0; z-index: 33}
+.layer_in span{ display: block;width:auto;padding:0 20px;height:32px;line-height:32px; text-align:center; font-size:14px; color:#333;}
+.layer_in span:hover{background-color:#eaf5fe;color:#3f9eee;};
 /*about is   list*/
 .about{margin:0px 10px 10px; border:1px solid #e0e0e0; border-radius:4px; background-color:#fff;padding:15px 10px;overflow:hidden;}
 .about li{ position:relative;}
@@ -166,6 +171,3 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .layer .layer_con li:last-child {border:none;}
 .layer .layer_con li a{height:42px; line-height:42px; color:#bcbcbc; font-size:15px; text-align:center; display:block;}
 .layer .layer_con li a:hover{ background-color:#eeeeee;}
-.layer_in{max-width:220px;min-width:298px;margin:0 auto; background-color:#fff;padding:10px 0; overflow:hidden; border-radius:3px; border:1px solid #e0e0e0;position: fixed; top:10px; right:10px ; z-index: 33}
-.layer_in span{ display: block;height:22px;line-height:22px; text-align:center; font-size:14px;padding:0 10px; color:#333;}
-.layer_in span:hover{background-color:#eaf5fe;color:#3f9eee;};
