@@ -34,7 +34,7 @@ foreach ($showLocation as &$one){
 	$one['level_name'] = $levelName;
 	$one['parent_name'] = $parent ? $parent['name'] : '';
 	
-	$one['operate'] = "<a href='/admin/location/update.php?loaction_id={$one['id']}' target='_blank'>修改</a> ";
+	$one['operate'] = "<a href='/admin/location/update.php?location_id={$one['id']}' target='_blank'>修改</a> ";
 	if($one['level'] < Lib_Location::LEVEL_LAST){
 		$one['operate'] .= "<a href='/admin/location/update.php?parent_id={$one['id']}' target='_blank'>创建子地区</a>";
 	}		

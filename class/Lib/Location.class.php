@@ -101,14 +101,13 @@ class Lib_Location{
 			self::$error = "地名不能为空";
 			return false;
 		}
-		
 		$condition = array(
 			'name' => $location['name'],
 			'level' => $location['level'],
 			'parent_id' => $location['parent_id'],
 		);
 		if($location['id']){
-			$condition = " id <> {$location['id']}";
+			$condition[] = " id <> {$location['id']}";
 		}
 		$dbLocation = new DB_Location();
 		if($dbLocation->exsits($condition)){
