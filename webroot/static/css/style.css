@@ -1,8 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
-*{ padding:0; margin:0;}
-body{ font-size:12px; color:#333; font-family:"Microsoft YaHei","微软雅黑","Microsoft JhengHei", "黑体", "宋体"; -webkit-text-size-adjust:none; background-color:#f5f5f5;}
+*{ padding:0; margin:0;font-family:"Microsoft YaHei","微软雅黑","Microsoft JhengHei", "黑体", "宋体";}
+body{ font-size:12px; color:#333;  -webkit-text-size-adjust:none; background-color:#f5f5f5;
+}
 a{text-decoration: none}
 a:hover{text-decoration: none}
 li{list-style: none;dispaly:list-item;}
@@ -10,6 +11,7 @@ img{border: none;vertical-align: top}
 input{border: medium none;vertical-align: middle}
 textarea{resize:none;}
 button{border: medium none;}
+input[type="button"], input[type="submit"], input[type="reset"], input[type="file"]{ -webkit-appearance:none; }
 h1,h2,h3,h4,h5,h6,div,li,p{font-size: 100%;font-weight: normal;}
 /************************ 通用清除 ************************/
 .iclear{ clear:both; height:0;line-height:0;overflow:hidden;}
@@ -19,7 +21,7 @@ h1,h2,h3,h4,h5,h6,div,li,p{font-size: 100%;font-weight: normal;}
 .fLeft{float:left; display:block; width:auto;}
 .fRight{float:right; display:block; width:auto;}
 .inputbtu{height:44px;margin:0 10px 10px;}
-.inputbtu .btu{height:44px;line-height:44px;  text-align:center; font-size:16px; color:#fff; width:100%; background-color:#f37e00;border-radius:4px;}
+.inputbtu .btu{height:44px;line-height:44px;  text-align:center; font-size:16px; color:#fff; width:100%; background-color:#f37e00;border-radius:4px; -webkit-appearance:none; }
 .tip{margin:0 10px 10px;line-height:16px; font-size:12px; color:#bbbbbb;}
 /*header的样式*/
 header{ overflow:hidden; height:44px; background: #007ee8;margin-bottom:11px;zoom:1; position:relative;}
@@ -39,10 +41,13 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .slist li label i{ display:block; position:absolute; top:1px; left:0; height:22px; width:29px; background:url(../img/ico.png) no-repeat 6px -110px; background-size:44px 310px;}
 .slist li label i.time{ background-position:-21px -110px;}
 .slist li label i.num{ background-position:5px -140px;}
+.slist li label i.phone{background-position:-23px -291px}
 
-.slist li a{  width:auto; height:22px; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#dfdfdf; font-size:16px;}
+.slist li a{  width:auto; height:22px; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#dfdfdf; font-size:16px; background-color:#fff;}
 .slist li a i{ display:block; position:absolute; top:6px; right:0; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
-
+.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right; color:#dfdfdf; font-size:16px; }
+.slist li:hover .fRight{background-color:#eaf5fe;}
+.slist li .fRight.col{color:#508eff;}
 /*about is   list*/
 .about{margin:0px 10px 10px; border:1px solid #e0e0e0; border-radius:4px; background-color:#fff;padding:15px 10px;overflow:hidden;}
 .about li{ position:relative;}
@@ -55,7 +60,7 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .alist{margin:0px 10px 10px; border:1px solid #e0e0e0; border-left:none; border-radius:4px; background-color:#fff; overflow:hidden;}
 .alist a{ display:block; position:relative;overflow:hidden;}
 
-.alist a .state{width:20px; text-align:center; position:absolute; top:0px; left:0px; background-color:#f37e00; font-size:10px;line-height:14px;  display:block;padding:12px 0 ; -webkit-text-size-adjust:none;  color:#fff;}
+.alist a .state{width:20px; text-align:center;  float:left;background-color:#f37e00; font-size:10px;line-height:14px;  display:block;padding:12px 0 ; -webkit-text-size-adjust:none;  color:#fff; height:100%;}
 .alist a .state_lv{ background-color:#469e0c;}
 .alist a .state_hui{ background-color:#bbbbbb;}
 .alist a div{margin:10px 22px 10px 28px;}
