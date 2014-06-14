@@ -166,3 +166,6 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .layer .layer_con li:last-child {border:none;}
 .layer .layer_con li a{height:42px; line-height:42px; color:#bcbcbc; font-size:15px; text-align:center; display:block;}
 .layer .layer_con li a:hover{ background-color:#eeeeee;}
+.layer_in{max-width:220px;min-width:298px;margin:0 auto; background-color:#fff;padding:10px 0; overflow:hidden; border-radius:3px; border:1px solid #e0e0e0;position: fixed; top:10px; right:10px ; z-index: 33}
+.layer_in span{ display: block;height:22px;line-height:22px; text-align:center; font-size:14px;padding:0 10px; color:#333;}
+.layer_in span:hover{background-color:#eaf5fe;color:#3f9eee;};
