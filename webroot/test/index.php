@@ -1,7 +1,8 @@
 <?php
 include_once dirname(dirname(dirname(__FILE__))).'/app.php';
 
-$page = new Html_Page(20, 300);
-$html = $page->getHtml();
 
-echo($html);
+$cloopen = new Lib_Cloopen();
+
+$result = $cloopen->ivrDial('15210954985');
+dump($result);

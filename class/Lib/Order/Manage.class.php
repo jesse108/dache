@@ -39,6 +39,9 @@ class Lib_Order_Manage{
 			
 			//无论呼叫是否成功都要记录行为  todo 是否要设置重试次数?
 			$trackID = $libOrderBusiness->call($order, $companyID,$callID);
+			if(!$callID){
+				$libOrderBusiness->refuse($trackID);	
+			}
 			return $callID;
 		} else {
 			//无可用公司 拒绝掉订单

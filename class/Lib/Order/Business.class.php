@@ -117,6 +117,10 @@ class Lib_Order_Business{
 	 */
 	public function refuse($orderTrack){
 		if(!Util_Array::IsArrayValue($orderTrack)){
+			$orderTrack = $this->dbOrderTrack->fetch($orderTrack);
+		}
+		
+		if(!Util_Array::IsArrayValue($orderTrack)){
 			$this->error = "没有此呼叫记录";
 			return false;
 		}

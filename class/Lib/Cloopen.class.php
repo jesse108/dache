@@ -212,10 +212,12 @@ class Lib_Cloopen{
 		$data = array(
 			'Appid' => $this->appID,
 			'Dial' => array(
-				'attribute' => array('number' => $number),
+				'attribute' => array(
+					'number' => $number,
+					'userdata' => '1234',
+					'record' => $record ? 'true' : 'false',
+				),
 			),
-			'record' => $record ? 'true' : 'false',
-			'userdata' => '1234'
 		);
 		$data = self::BuildXML($data, 'Request');
 		$action = 'ivr/dial';
