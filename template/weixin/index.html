@@ -22,7 +22,7 @@
 		<li class="clearfix"> 
 	    	<label class="fLeft"><i class="add"></i>出发地</label>
 	        <i></i>
-	        <a class="fRight" href="/weixin/order_create/select_departure.php">
+	        <a class="fRight {if $locationDeparture}col{/if}" href="/weixin/order_create/select_departure.php">
 	        {if $locationDeparture}
 	        	{$locationDeparture['name']}
 	        {else}
@@ -36,7 +36,7 @@
 	    <!-- 目的地 -->
 	    <li class="clearfix">
 	    	<label class="fLeft"><i class="add"></i>目的地</label>
-	        <a class="fRight" href="/weixin/order_create/select_destination.php?departure={$order['departure']}"> <i class="three"></i>
+	        <a class="fRight {if $locationDestination}col{/if}" href="/weixin/order_create/select_destination.php?departure={$order['departure']}"> <i class="three"></i>
 	        {if $locationDestination}
 	        	{$locationDestination['name']}
 	        {else}	
@@ -48,7 +48,7 @@
 	    
 	    <li class="clearfix">
 	    	<label class="fLeft" ><i class="time"></i>时间</label>
-	    	<select name="time" class="fRight">
+	    	<select name="time" class="fRight col">
 	    		{foreach $timeArray as $showTime}
 	    		<option value="{$showTime['time']}" {if $order['time'] == $showTime['time']}selected{/if}>{$showTime['title']}</option>
 	    		{/foreach}
@@ -64,50 +64,10 @@
 	    	</select>
 	    </li>
 	</ul>
-<ul class="slist " >
-    <li class="clearfix">
-        <label class="fLeft"><i class="time"></i>时间</label>
-        <input class="fRight am " id="am"  type="text" onclick="hide('HMF-1')" name="contact_mobile" value="请选择"  /><i class="three"></i>
-        <div id="HMF-1" style="display: none " class="bm layer_in">
-		    <span id="a1" onclick="pick('测试一')" class="cur">测试一</span>
-		    <span id="a2" onclick="pick('测试二')" class="cur">测试二</span>
-		    <span id="a3" onclick="pick('测试三')" class="cur">测试三</span>
-		    <span id="a4" onclick="pick('测试四')" class="cur">测试四</span>
-		    <span id="a5" onclick="pick('测试五')" class="cur">测试五</span>
-		</div>
-    </li>
-</ul>
-<ul class="slist " >
-    <li class="clearfix">
-        <label class="fLeft"><i class="num"></i>人数</label>
-        <input class="fRight am col" id="am"  type="text" onclick="hide('HMF-1')" name="contact_mobile" value="1人"  /><i class="three"></i>
-        <div id="HMF-1" style="display: none " class="bm layer_in">
-		    <span id="a1" onclick="pick('1人')" class="cur">1人</span>
-		    <span id="a2" onclick="pick('2人')" class="cur">2人</span>
-		    <span id="a3" onclick="pick('3人')" class="cur">3人</span>
-		    <span id="a4" onclick="pick('4人')" class="cur">4人</span>
-		    <span id="a5" onclick="pick('5人')" class="cur">5人</span>
-		</div>
-    </li>
-</ul>
-<script type="text/javascript" >
-    function hide(_sId)
-     { 
-     	htmlObj = document.getElementById(_sId);
-     	htmlObj.style.display = htmlObj.style.display == "none" ? "" : "none";
-     }
-
-    function pick(v) {
-        document.getElementById('am').value=v;
-        hide('HMF-1');
-    }
-
-   
-</script>
 	<ul class="slist">
 		<li class="clearfix">
-	    	<label class="fLeft"><i class="phone"></i>联系方式</label>
-	    	<input class="fRight fRight_phone" type="text" name="contact_mobile" value="{$order['contact_mobile']}"  placeholder="请填写手机号"/>
+	    	<label class="fLeft"><i class="phone"></i>联系电话</label>
+	    	<input class="fRight fRight_phone col" type="text" name="contact_mobile" value="{$order['contact_mobile']}"  placeholder="请填写手机号"/>
 	    </li>
 	</ul>
 <!--赵剑：出发地、目的地、时间人数、联系人电话，在选择或者赋值后给多添加一个class名“col”，例如：class="fRight col"；手机号默认用value="请填写手机号"取代placeholder="请填写手机号"，避免安卓手机出现问题-->
