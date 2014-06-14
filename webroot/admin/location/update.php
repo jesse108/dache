@@ -7,6 +7,7 @@ $parentID = $_REQUEST['parent_id'];
 
 if($locationID){
 	$location = Lib_Location::Fetch($locationID);
+	
 	if(!Util_Array::IsArrayValue($location)){
 		$error = Lib_Admin::GetError(false);
 		Utility::Redirect("/admin/location/index.php");
