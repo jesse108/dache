@@ -207,7 +207,7 @@ class Lib_Order{
 				break;
 			case DB_Order::STATUS_REFUSE;
 				$process = 2;
-				$processShow = "订单失败";
+				$processShow = "未成功";
 				break;
 			case DB_Order::STATUS_NORMAL:
 			case DB_Order::STATUS_ACCEPT:
