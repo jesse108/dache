@@ -65,7 +65,7 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .alist{margin:0px 10px 10px; border:1px solid #e0e0e0; border-left:none; border-radius:4px; background-color:#fff; overflow:hidden;}
 .alist a{ display:block; position:relative;overflow:hidden;}
 
-.alist a .state{width:20px; text-align:center;  float:left;background-color:#f37e00; font-size:10px;line-height:14px;  display:block;padding:12px 0 ; -webkit-text-size-adjust:none;  color:#fff; height:100%;}
+.alist a .state{width:20px; text-align:center;  float:left;background-color:#f37e00; font-size:14px;line-height:14px;  display:block;padding:12px 0 ; -webkit-text-size-adjust:none;  color:#fff; height:100%;}
 .alist a .state_lv{ background-color:#469e0c;}
 .alist a .state_hui{ background-color:#bbbbbb;}
 .alist a div{margin:10px 22px 10px 28px;}
