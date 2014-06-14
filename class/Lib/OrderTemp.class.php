@@ -52,7 +52,7 @@ class Lib_OrderTemp{
 		);
 		
 		for($time = $startTime;$time < $endTime; $time += $duration){
-			if($time <= $currentTime + $duration){
+			if($time <= $currentTime + 600){  //10分钟
 				continue;
 			}
 			
