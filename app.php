@@ -1,6 +1,7 @@
 <?php
 //
 session_start();
+error_reporting(0); //线上屏蔽所有错误
 ini_set('precision', 16);  //这只浮点型精度
 define('ROOT_PATH', dirname(__FILE__));
 define('LIB_PATH', ROOT_PATH.'/lib');
