@@ -55,7 +55,7 @@
 	    
 	    <li>
 	    	<label class="fLeft"><i class="num"></i>人数</label>
-	    	<select name="num" class="fRight">
+	    	<select name="num" class="fRight col">
 	    		{for $i =1;$i<=$maxNum;$i++}
 	    		<option value="{$i}" {if $order['num'] == $i} selected {/if}>{$i}人</option>	
 	    		{/for}

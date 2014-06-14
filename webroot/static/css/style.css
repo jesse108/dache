@@ -34,18 +34,18 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 /*列表通用样式*/
 /*slist is for index list*/
 .slist{margin:0px 10px 10px; border:1px solid #e0e0e0; border-radius:4px; background-color:#fff;}
-.slist li{ list-style:none; border-bottom:1px solid #e0e0e0; overflow:hidden;padding:10px;}
+.slist li{ list-style:none; border-bottom:1px solid #e0e0e0; overflow:hidden;padding:10px; position:relative; }
 .slist li:hover{ background-color:#eaf5fe;}
 .slist li:last-child {border:none;}
-.slist li label{  width:auto; height:22px; line-height:22px; overflow:hidden; position:relative; padding-left:30px; color:#333333; font-size:16px;}
-.slist li label i{ display:block; position:absolute; top:1px; left:0; height:22px; width:29px; background:url(../img/ico.png) no-repeat 6px -110px; background-size:44px 310px;}
+.slist li label{  width:auto; height:22px; line-height:22px; overflow:hidden; position:absolute;top:10px; left:10px;z-index:33; padding-left:30px; color:#333333; font-size:16px;}
+.slist li label i{ display:block; position:absolute; top:1px; left:0px; height:22px; width:29px; background:url(../img/ico.png) no-repeat 6px -110px; background-size:44px 310px;}
 .slist li label i.time{ background-position:-21px -110px;}
 .slist li label i.num{ background-position:5px -140px;}
 .slist li label i.phone{background-position:-23px -291px}
 
-.slist li a{  width:auto; height:22px; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#dfdfdf; font-size:16px; background-color:#fff;}
+.slist li a{  height:22px; float:none; display: block; line-height:22px; overflow:hidden; position:relative; padding-right:20px; color:#dfdfdf; font-size:16px; background-color:#fff;}
 .slist li a i{ display:block; position:absolute; top:6px; right:0; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
-.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right; color:#dfdfdf; font-size:16px; }
+.slist li .fRight{border:none;height:22px; line-height:22px; text-align:right; color:#666; font-size:16px; }
 .slist li:hover .fRight{background-color:#eaf5fe;}
 .slist li .fRight.col{color:#508eff;}
 /*about is   list*/
