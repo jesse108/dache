@@ -1,6 +1,7 @@
 <?php
 include_once dirname(dirname(__FILE__)).'/app.php';
 
+/*
 $order = DB::LimitQuery('order');
 
 $cloopenObj = new Lib_Cloopen();
@@ -17,4 +18,5 @@ dump($result);
 //dump($subAccounts);
 
 exit;
+*/
 Template::Show();
