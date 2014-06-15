@@ -3,6 +3,9 @@ class Log_DB implements Log_Model{
 	public $dbType;
 	public $table;
 	
+	const TYPE_WEIXIN = 1;
+	const TYPE_CLOOPEN = 2;
+	
 	public function __construct($dbType =null,$table = 'log'){
 		if(!$dbType){
 			$config = Config::Get('log');

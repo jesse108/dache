@@ -63,7 +63,7 @@ if($order['destination']){
 
 //////////获取今天的订单信息
 $libOrder = new Lib_Order();
-$todayOrders = $libOrder->getTodayOrder($loginUserID);
+$todayOrders = $libOrder->getTodayOrder($loginUserID,0,1);
 
 foreach ($todayOrders as &$todayOrder){
 	$currentOrderShow = Lib_Order::GetReadableOrder($todayOrder);

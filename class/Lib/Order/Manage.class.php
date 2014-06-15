@@ -45,7 +45,7 @@ class Lib_Order_Manage{
 			return $callID;
 		} else {
 			//无可用公司 拒绝掉订单
-			$libOrderBusiness->refeseOrder($order['id']);
+			//$libOrderBusiness->refeseOrder($order['id']);
 		}
 		return false;
 	}

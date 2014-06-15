@@ -25,7 +25,6 @@ class Lib_Order_Business{
 	 * 给一家出租车公司打电话   注意 这里不做任何电信
 	 */
 	public function call($order,$companyID,$callID = ''){
-		
 		///验证
 		if(!Util_Array::IsArrayValue($order)){
 			$this->error = "订单ID不对";

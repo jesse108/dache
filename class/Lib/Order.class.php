@@ -128,7 +128,7 @@ class Lib_Order{
 	 * @param number $currentTime 当前时间
 	 * @return Ambigous <boolean, multitype:, multitype:multitype: >
 	 */
-	public function getTodayOrder($userID , $currentTime = 0){
+	public function getTodayOrder($userID , $currentTime = 0,$num = 0){
 		$currentTime = $currentTime ? $currentTime : time();
 		$currentDate = date('Y-m-d',$currentTime);
 		
@@ -142,7 +142,14 @@ class Lib_Order{
 			"status <> {$delStauts}",
 			"user_id"  => $userID,
 		);
-		$orders = $this->dbOrder->get($condition);
+		$option = array(
+			'order' => 'order by id desc',
+		);
+		if($num){
+			$option['size'] = intval($num);
+		}
+		
+		$orders = $this->dbOrder->get($condition,$option);
 		return $orders;
 	}
 	

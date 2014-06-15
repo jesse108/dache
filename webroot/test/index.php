@@ -2,7 +2,10 @@
 include_once dirname(dirname(dirname(__FILE__))).'/app.php';
 
 
-$cloopen = new Lib_Cloopen();
+$orderID = 68;
 
-$result = $cloopen->ivrDial('15210954985');
-dump($result);
+$dbOrder = new DB_Order();
+$order = $dbOrder->fetch($orderID);
+
+
+Lib_Order_Manage::CallOneOrder($order);
