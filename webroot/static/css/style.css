@@ -47,7 +47,7 @@ header .return{width:45px;height:44px; display:block; position:absolute; top:0; 
 .slist li i.three{ display:block; position:absolute; top:15px; right:12px; height:12px; width:8px; background:url(../img/ico.png) no-repeat right -140px; background-size:44px 310px;}
 .slist li .fRight{border:none;height:22px; line-height:22px; text-align:right;outline:none;  color:#b2b2b2;font-size:16px; }
 .slist li:hover .fRight{background-color:#eaf5fe;}
-.fRight_phone{width:110px;outline:none;}
+.slist li .fRight.fRight_phone{width:110px;outline:none;padding-right:0px;}
 .slist li .fRight.col{color:#508eff;}
 .slist li input.fRight{height:22px;  display: block;outline:none; text-align:right;line-height:22px; overflow:hidden; padding-right:20px; color:#b2b2b2; font-size:16px; background-color:#fff;}
 .layer_in{width:auto; display:block;margin:0 auto; background-color:#fff; position:absolute; top:42px;right:0px; padding:2px 0; overflow:hidden; border-radius:3px; border:1px solid #e0e0e0; z-index: 33}
