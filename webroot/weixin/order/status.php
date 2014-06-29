@@ -9,9 +9,7 @@ if(!$loginuserID){
 
 
 $orderID = $_GET['order_id'];
-
 $libOrder = new Lib_Order();
-
 $order = $libOrder->getOrderInfo($orderID);
 
 if(!$order){
@@ -24,10 +22,13 @@ if($order['user_id'] != $loginuserID){
 	Utility::Redirect('/weixin/index.php');
 }
 
+///订单信息
 $orderShow = Lib_Order::GetReadableOrder($order);
+
+
+///订单呼叫记录
 $orderTracks = $libOrder->getOrderTrack($orderID);
 $countTracks = count($orderTracks);
-
 $orderTrackInfos = array();
 foreach ($orderTracks as $orderTrack){
 	$orderTrackInfos[$orderTrack['id']] = Lib_Order::getReadableOrderTrack($orderTrack);
@@ -50,6 +51,18 @@ $evaluation = Lib_Evaluation::Fetch($orderID);
 $defaultEvaluation = Lib_Evaluation::getDefaultEvaluation();
 $serviceMark = $_GET['service_mark'] > 0 ? intval($_GET['service_mark']) : $defaultEvaluation['service_mark'];
 $timeMark = $_GET['time_mark'] > 0 ? intval($_GET['time_mark']) : $defaultEvaluation['time_mark'];
+
+
+switch ($order['status']){
+	case DB_Order::STATUS_NORMAL:
+		$companyCount = Lib_Order::getOrderCompanyCount($order);
+		break;
+	default:
+	
+		break;
+}
+
+
 
 ////操作
 if($_GET['action']){

@@ -5,15 +5,15 @@
     <a class="return" href="/weixin/index.php"></a>
 </header>
 
-{if $order['status'] == DB_Order::STATUS_NORMAL}
+{if $order['status'] == DB_Order::STATUS_NORMAL}<!-- 等待接单 -->
 	{include file="weixin/block/order/status_wait.html"}
-{else if $order['status'] == DB_Order::STATUS_REFUSE}
+{else if $order['status'] == DB_Order::STATUS_REFUSE} <!-- 订单被拒 -->
 	{include file="weixin/block/order/status_refuse.html"}
-{else if $order['status'] == DB_Order::STATUS_ACCEPT}
+{else if $order['status'] == DB_Order::STATUS_ACCEPT}<!-- 订单被接受 -->
 	{include file="weixin/block/order/status_accept.html"}
-{else if $order['status'] == DB_Order::STATUS_ACCEPT_ON && !$evaluation}
+{else if $order['status'] == DB_Order::STATUS_ACCEPT_ON && !$evaluation} <!-- 已上车 未评价 -->
 	{include file="weixin/block/order/status_evaluate.html"}
-{else if $evaluation}
+{else if $evaluation} <!-- 已上车 已评价 -->
 	{include file="weixin/block/order/status_evaluation.html"}
 {/if}
 

@@ -42,6 +42,12 @@ class Lib_Order{
 		return $orderID;
 	}
 	
+	/**
+	 * 验证订单是否可被提交
+	 * @param array $order
+	 * @param string $type
+	 * @return multitype:boolean string
+	 */
 	public function validateOrder($order,$type = VALIDATE_TYPE_CREATE){
 		$message = '';
 		
@@ -261,6 +267,21 @@ class Lib_Order{
 			'status_show' => $statusShow,
 		);
 		return $orderTrackInfo;
+	}
+	
+	/**
+	 * 获取订单可用公司数量
+	 * @param array $order
+	 */
+	public static function getOrderCompanyCount($order){
+		$departure = $order['departure'];
+		$destination = $order['destination'];
+		
+		$comRouter = array(
+			'departure' => $departure,
+		);
+		
+		
 	}
 	
 	

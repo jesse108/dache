@@ -33,6 +33,7 @@ class Util_HttpRequest {
 	}
 	
 	public static function Request($url, $method, $parameters, $header = array()) {
+		$url = trim($url);
 		$parameters = $parameters ? $parameters : array ();
 		if (strrpos ( $url, 'http://' ) !== 0 && strrpos ( $url, 'https://' ) !== 0) {
 			self::$error = 'Request fail for url is not correct!';
@@ -102,6 +103,11 @@ class Util_HttpRequest {
 		if (!$params){
 			return '';
 		}
+		
+		if(!is_array($params)){
+			return $params;
+		}
+		
 		uksort ( $params, 'strcmp' );
 		
 		$pairs = array ();

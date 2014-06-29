@@ -17,25 +17,70 @@ class Lib_Router{
 	 * 获取所有 出发地
 	 * @return boolean|unknown
 	 */
-	public function getAllDeparture(){
+	public function getAllDeparture($parentID = 0){
 		$allRoute = $this->dbCompanyRoute->getAllAvailableRoute();
 		if(!Util_Array::IsArrayValue($allRoute)){
 			return FALSE;
 		}
 		
 		$departureIDs = Util_Array::GetColumn($allRoute, 'departure');
-		$locations = Lib_Location::Fetch($departureIDs);
+		$allLocations = Lib_Location::GetAllLocatoin(true);
 		
-		$parentIDs = Util_Array::GetColumn($locations, 'parent_id');
-		$cities = Lib_Location::Fetch($parentIDs);
+		self::addFlag($allLocations, $departureIDs);
 		
-		foreach ($locations as $location){
-			$cityID = $location['parent_id'];
-			$cities[$cityID]['sub_locations'][] = $location; 
+		
+		if($parentID){
+			$location = Util_Array::FindNodeInTree($allLocations, $parentID);
+			$locations = array($location['id'] => $location);
+		} else {
+			//因为第一个是中国所以
+			$locations = array_pop($allLocations);
+			$locations = $locations['sub'];
 		}
 		
-		return $cities;
+		return $locations;
 	}
+	
+	public static function addFlag(&$locations,$departureIDs){
+		if(!$locations){
+			return false;
+		}
+		
+		$ret = false;
+		foreach ($locations as $index => $one){
+			$subDeparture = false;
+			$selfDeparture = false;
+			
+			if(in_array($one['id'], $departureIDs)){
+				$selfDeparture = true;
+			}
+			
+			if($one['sub']){
+				$subDeparture = self::addFlag($one['sub'], $departureIDs);
+			}
+			$one['is_de'] = $selfDeparture;
+			$one['sub_is_de'] = $subDeparture;
+			$locations[$index] = $one;
+			
+			if($selfDeparture || $subDeparture){
+				$ret = true;
+			}
+		}
+		return $ret;
+	}
+	
+	
+	
+	/**
+	 * 获取出发地
+	 * @param number $parentID
+	 */
+	public function getDeparture($parentID = 0){
+		$condition = array(
+			'status' => DB_CompanyRoute::STATUS_NORMAL,
+		);
+	}
+	
 	
 	/**
 	 * 根据出发到底 获取错有目的地
@@ -76,4 +121,6 @@ class Lib_Router{
 		$str ="$parentLocationName {$locationName}";
 		return $str;
 	}
+	
+
 }

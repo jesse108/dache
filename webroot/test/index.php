@@ -1,11 +1,8 @@
 <?php
 include_once dirname(dirname(dirname(__FILE__))).'/app.php';
 
-
-$orderID = 68;
-
-$dbOrder = new DB_Order();
-$order = $dbOrder->fetch($orderID);
+$location = Lib_Location::GetAllLocatoin();
+$location = Util_Array::FormatInTree($location);
 
 
-Lib_Order_Manage::CallOneOrder($order);
+dump($location);

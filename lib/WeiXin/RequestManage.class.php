@@ -26,7 +26,6 @@ class WeiXin_RequestManage{
 			return $_GET['echostr'];
 		}
 		//////
-		
 		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取raw post数据
 		if(!$postStr){
 			$result =  ' ';

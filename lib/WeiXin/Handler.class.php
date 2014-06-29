@@ -15,5 +15,10 @@ interface WeiXin_Handler{
 	const EVENT_TYPE_LOCATION = 'LOCATION'; //微信自动上报地理位置
 	const EVENT_TYPE_CLICK = 'CLICK'; //点击事件
 	
+	
+	///////Menu
+	const MENU_BUTTON_TYPE_CLICK = 'click';
+	const MENU_BUTTON_TYPE_VTEW = 'view';
+	
 	public function handleRquest($type,$content);
 }

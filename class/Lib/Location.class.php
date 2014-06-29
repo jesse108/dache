@@ -69,7 +69,7 @@ class Lib_Location{
 		}
 	}
 	
-	public static function GetAllLocatoin(){
+	public static function GetAllLocatoin($format = false){
 		if(!Util_Array::IsArrayValue(self::$allLoaction)){
 			$dbLocation =new DB_Location();
 			$condition = array(
@@ -78,8 +78,14 @@ class Lib_Location{
 			$locations = $dbLocation->get($condition);
 			$locations = Util_Array::AssColumn($locations, 'id');
 			self::$allLoaction = $locations;
+		} else {
+			$locations = self::$allLoaction;
 		}
-		return self::$allLoaction;
+		
+		if($format){
+			$locations = Util_Array::FormatInTree($locations);
+		}
+		return $locations;
 	}
 	
 	public static function getLocationShowStr($location){
@@ -116,4 +122,5 @@ class Lib_Location{
 		}
 		return true;
 	}
+	
 }

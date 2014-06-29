@@ -55,8 +55,8 @@ class Util_Time{
 	///////
 	public static function getManReadTime($time,$currentTime = 0){
 		$currentTime = $currentTime ? $currentTime : time();
-		if(abs($time-$currentTime) <= 60){
-			return "现在";
+		if(abs($time-$currentTime) <= 60*10){
+			return "现在出发";
 		}
 		
 		$currentDate = date('Y-m-d',$currentTime);

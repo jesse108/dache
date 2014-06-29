@@ -15,11 +15,22 @@
     </div>
 {/if}
     <div  class="citylist">
-    	{foreach $departures as $city}
-    		<h3>【{$city['name']}】</h3>
+    	{foreach $departures as $location}
+    		{if !$location['is_de'] && !$location['sub_is_de']}
+    			{continue}
+    		{/if}
+    		<h3>【{$location['name']}】</h3>
     		<ul>
-    		{foreach $city['sub_locations'] as $location}
+    		{if $location['is_de']}
     			<li><a href="/weixin/index.php?departure={$location['id']}&destination=0">{$location['name']}</a></li>
+    		{/if}
+    		
+    		{foreach $location['sub'] as $subLocation}
+    			{if $subLocation['sub_is_de']}
+    			<li><a href="?parent_id={$subLocation['id']}">{$subLocation['name']}</a></li>
+    			{else if $subLocation['is_de']}
+    			<li><a href="/weixin/index.php?departure={$subLocation['id']}&destination=0">{$subLocation['name']}</a></li>
+    			{/if}
     		{/foreach}
     		</ul>
     	{/foreach}

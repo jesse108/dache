@@ -23,4 +23,5 @@ if($_POST['action'] == 'confirm'){
 
 //////////前端显示
 $orderShow = Lib_Order::GetReadableOrder($order);
+
 Template::Show();

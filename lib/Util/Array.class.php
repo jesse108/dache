@@ -134,4 +134,72 @@ class Util_Array{
 		return $sortedArray;
 	
 	}
+	
+	/**
+	 * 格式化嵌套数组
+	 */
+	private static $arrayFormatTrack = array();
+	private static $arrayFormatTemp = array();
+	
+	public static function FormatInTree($array,$keyName = 'id',$parentKey = 'parent_id',$subName = 'sub'){
+		self::$arrayFormatTrack = array();
+		self::$arrayFormatTemp = $array;
+		$tree = self::GetSubTree($array, 0,$keyName,$parentKey,$subName);
+		self::$arrayFormatTrack = array();
+		self::$arrayFormatTemp = array();
+		return $tree;	
+	}
+	
+	public static function GetSubTree($array = null,$parentID = null,$keyName = 'id',$parentKeyName='parent_id',$subName = 'sub',$assIndex = true){
+		if(!$array){
+			$data = self::$arrayFormatTemp;
+		} else {
+			$data = $array;
+		}
+		
+		$tree = array();
+		foreach ($data as $index => $one){
+			$key = $one[$keyName];
+			if(self::$arrayFormatTrack[$key] ||  //已经记录过
+				($parentID && $one[$parentKeyName] != $parentID)//非子元素
+				){
+				continue;
+			}
+			self::$arrayFormatTrack[$key] = true;
+			unset(self::$arrayFormatTemp[$index]);
+			
+			$subTree = self::GetSubTree($array,$key,$keyName,$parentKeyName,$subName,$assIndex);
+			if($subTree){
+				$one[$subName] = $subTree;
+			}
+			
+			if($assIndex){
+				$tree[$key] = $one;
+			} else {
+				$tree[] = $one;
+			}
+		}
+		return $tree;
+	}
+	
+	public static function FindNodeInTree($tree,$keyValue,$keyName = 'id',$subName = 'sub'){
+		if(!Util_Array::IsArrayValue($tree)){
+			return false;
+		}
+		
+		foreach ($tree as $index => $one){
+			if($one[$keyName] == $keyValue){
+				return $one;
+			}
+			
+			if($one[$subName]){
+				$subResult = self::FindNodeInTree($one[$subName], $keyValue,$keyName,$subName);
+				if($subResult){
+					return $subResult;
+				}
+			}
+		}
+		
+		return false;
+	}
 }

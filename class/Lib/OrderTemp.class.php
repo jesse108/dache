@@ -103,6 +103,7 @@ class Lib_OrderTemp{
 		
 		if(!Util_Validator::validate($order['contact_mobile'], Util_Validator::TYPE_MOBILE)){
 			self::$error = "需要填写正确的手机号，我们才能联系上您";
+			return false;
 		}
 		return true;
 	}
