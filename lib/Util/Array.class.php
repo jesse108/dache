@@ -135,6 +135,12 @@ class Util_Array{
 	
 	}
 	
+	
+	
+	
+	
+	
+	/////////////////////数组格式化
 	/**
 	 * 格式化嵌套数组
 	 */
@@ -182,6 +188,15 @@ class Util_Array{
 		return $tree;
 	}
 	
+	/**
+	 * 在树形数组中寻找指定元素
+	 * 
+	 * @param array $tree   输入树形数组
+	 * @param str $keyValue 寻找Key值
+	 * @param string $keyName 键值名称 默认为 id
+	 * @param string $subName 子树名称
+	 * @return  找到的元素
+	 */
 	public static function FindNodeInTree($tree,$keyValue,$keyName = 'id',$subName = 'sub'){
 		if(!Util_Array::IsArrayValue($tree)){
 			return false;
@@ -202,4 +217,5 @@ class Util_Array{
 		
 		return false;
 	}
+	/////////////////////////////////////////
 }

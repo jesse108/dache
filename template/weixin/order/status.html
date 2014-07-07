@@ -20,3 +20,9 @@
 
 {include file="weixin/block/order/status.html"}
 {include file="weixin/footer.html"}
+
+{if $order['status'] == DB_Order::STATUS_NORMAL}
+<script type="text/javascript">
+	setTimeout("window.location.reload();",30000);
+</script>
+{/if}
